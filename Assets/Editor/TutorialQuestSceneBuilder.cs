@@ -219,7 +219,10 @@ public static class TutorialQuestSceneBuilder
             CharacterMotor2D ratMotor = rat.AddComponent<CharacterMotor2D>();
             HealthComponent ratHealth = rat.AddComponent<HealthComponent>();
             CombatActor ratCombatActor = rat.AddComponent<CombatActor>();
-            rat.AddComponent<EnemyCombatVisualPresenter>();
+            rat.AddComponent<HealthBarPresenter>();
+            rat.AddComponent<HealthChangeFeedbackPresenter>();
+            rat.AddComponent<HitFlashPresenter>();
+            rat.AddComponent<CorpseDecayController>();
             EnemyCombatController ratCombat = rat.AddComponent<EnemyCombatController>();
             CorpseLootSource corpseLoot = rat.AddComponent<CorpseLootSource>();
             SetObject(ratMotor, "movementSettings", ratMovementSettings);

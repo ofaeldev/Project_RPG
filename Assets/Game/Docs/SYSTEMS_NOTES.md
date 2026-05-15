@@ -225,7 +225,6 @@ Core scripts:
 - `Assets/Game/Scripts/Systems/Combat/HealthBarPresenter.cs`
 - `Assets/Game/Scripts/Systems/Combat/HitFlashPresenter.cs`
 - `Assets/Game/Scripts/Systems/Combat/CorpseDecayController.cs`
-- `Assets/Game/Scripts/Systems/Combat/EnemyCombatVisualPresenter.cs`
 - `Assets/Game/Scripts/Gameplay/Combat/CorpseLootSource.cs`
 
 Implemented:
@@ -254,7 +253,7 @@ Implemented:
 - `HealthBarPresenter` shows an enemy health bar above damaged targets.
 - `HitFlashPresenter` briefly flashes a target sprite when damage lands.
 - `CorpseDecayController` leaves dead enemies in the world for loot, darkens them over time, then disables the body.
-- `EnemyCombatVisualPresenter` combines enemy-only health bar, hit text, hit flash, and corpse decay to keep enemy GameObjects lighter.
+- Tutorial enemies now use the smaller visual presenters directly instead of a combined enemy-only visual component.
 - `CorpseLootSource` owns corpse loot contents and one-time loot state.
 - `EnemyCombatController` gives enemies a simple combat loop: acquire player, optionally chase, attack in range, or flee if behavior settings request it.
 - `EnemyCombatBehaviorSettings` stores enemy combat style data so future melee, ranged, coward, caster, stealth, or other archetypes can branch by data instead of hard-coded enemy classes.
@@ -435,9 +434,8 @@ Validated:
 - Short Play Mode smoke test produced no console errors or warnings.
 
 Recommended next work:
-1. Finish visual cleanup by replacing `EnemyCombatVisualPresenter` with the smaller presenters where appropriate.
-2. Consider moving corpse loot claiming out of `CorpseLootSource` into a non-MonoBehaviour loot model/service if inventory transfer rules become more complex.
-3. Add visual/animation state for enemy chasing and attacking, preferably by listening to `CombatActor` and health events.
-4. Review enemy detection and attack pacing in Play Mode for feel.
-5. Decide whether ranged enemies should attack without moving as the first alternate enemy archetype.
-6. Later, expand `EnemyCombatBehaviorSettings` with escape, spell, invisibility, and ranged/caster-specific rules instead of creating separate one-off enemy scripts.
+1. Consider moving corpse loot claiming out of `CorpseLootSource` into a non-MonoBehaviour loot model/service if inventory transfer rules become more complex.
+2. Add visual/animation state for enemy chasing and attacking, preferably by listening to `CombatActor` and health events.
+3. Review enemy detection and attack pacing in Play Mode for feel.
+4. Decide whether ranged enemies should attack without moving as the first alternate enemy archetype.
+5. Later, expand `EnemyCombatBehaviorSettings` with escape, spell, invisibility, and ranged/caster-specific rules instead of creating separate one-off enemy scripts.

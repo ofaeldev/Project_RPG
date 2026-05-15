@@ -873,10 +873,13 @@ GameObject:
   - component: {fileID: 225649428}
   - component: {fileID: 225649434}
   - component: {fileID: 225649438}
-  - component: {fileID: 225649435}
   - component: {fileID: 225649423}
   - component: {fileID: 225649436}
   - component: {fileID: 225649440}
+  - component: {fileID: 225649444}
+  - component: {fileID: 225649443}
+  - component: {fileID: 225649442}
+  - component: {fileID: 225649441}
   m_Layer: 0
   m_Name: Rat_01
   m_TagString: Untagged
@@ -1072,34 +1075,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &225649435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225649422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &225649436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1186,6 +1161,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &225649441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225649422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &225649442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225649422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &225649443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225649422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &225649444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225649422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &253828505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1338,11 +1383,14 @@ GameObject:
   - component: {fileID: 310610678}
   - component: {fileID: 310610683}
   - component: {fileID: 310610689}
-  - component: {fileID: 310610690}
   - component: {fileID: 310610694}
   - component: {fileID: 310610693}
   - component: {fileID: 310610691}
   - component: {fileID: 310610695}
+  - component: {fileID: 310610699}
+  - component: {fileID: 310610698}
+  - component: {fileID: 310610697}
+  - component: {fileID: 310610696}
   m_Layer: 0
   m_Name: Rat_06
   m_TagString: Untagged
@@ -1538,34 +1586,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &310610690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310610677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &310610691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1652,6 +1672,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &310610696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310610677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &310610697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310610677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &310610698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310610677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &310610699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310610677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &365393120
 GameObject:
   m_ObjectHideFlags: 0
@@ -2248,11 +2338,14 @@ GameObject:
   - component: {fileID: 533891773}
   - component: {fileID: 533891778}
   - component: {fileID: 533891784}
-  - component: {fileID: 533891785}
   - component: {fileID: 533891789}
   - component: {fileID: 533891788}
   - component: {fileID: 533891786}
   - component: {fileID: 533891790}
+  - component: {fileID: 533891794}
+  - component: {fileID: 533891793}
+  - component: {fileID: 533891792}
+  - component: {fileID: 533891791}
   m_Layer: 0
   m_Name: Rat_10
   m_TagString: Untagged
@@ -2448,34 +2541,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &533891785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533891772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &533891786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2562,6 +2627,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &533891791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533891772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &533891792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533891772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &533891793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533891772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &533891794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533891772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &540380015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2714,11 +2849,14 @@ GameObject:
   - component: {fileID: 551658448}
   - component: {fileID: 551658453}
   - component: {fileID: 551658459}
-  - component: {fileID: 551658460}
   - component: {fileID: 551658464}
   - component: {fileID: 551658463}
   - component: {fileID: 551658461}
   - component: {fileID: 551658465}
+  - component: {fileID: 551658469}
+  - component: {fileID: 551658468}
+  - component: {fileID: 551658467}
+  - component: {fileID: 551658466}
   m_Layer: 0
   m_Name: Rat_05
   m_TagString: Untagged
@@ -2914,34 +3052,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &551658460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551658447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &551658461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3028,6 +3138,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &551658466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551658447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &551658467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551658447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &551658468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551658447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &551658469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551658447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &587067596
 GameObject:
   m_ObjectHideFlags: 0
@@ -4417,11 +4597,14 @@ GameObject:
   - component: {fileID: 830002582}
   - component: {fileID: 830002587}
   - component: {fileID: 830002593}
-  - component: {fileID: 830002594}
   - component: {fileID: 830002598}
   - component: {fileID: 830002597}
   - component: {fileID: 830002595}
   - component: {fileID: 830002599}
+  - component: {fileID: 830002603}
+  - component: {fileID: 830002602}
+  - component: {fileID: 830002601}
+  - component: {fileID: 830002600}
   m_Layer: 0
   m_Name: Rat_02
   m_TagString: Untagged
@@ -4617,34 +4800,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &830002594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830002581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &830002595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4731,6 +4886,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &830002600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830002581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &830002601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830002581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &830002602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830002581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &830002603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830002581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &885488412
 GameObject:
   m_ObjectHideFlags: 0
@@ -5517,11 +5742,14 @@ GameObject:
   - component: {fileID: 965629771}
   - component: {fileID: 965629776}
   - component: {fileID: 965629782}
-  - component: {fileID: 965629783}
   - component: {fileID: 965629787}
   - component: {fileID: 965629786}
   - component: {fileID: 965629784}
   - component: {fileID: 965629788}
+  - component: {fileID: 965629792}
+  - component: {fileID: 965629791}
+  - component: {fileID: 965629790}
+  - component: {fileID: 965629789}
   m_Layer: 0
   m_Name: Rat_09
   m_TagString: Untagged
@@ -5717,34 +5945,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &965629783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965629770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &965629784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5831,6 +6031,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &965629789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965629770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &965629790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965629770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &965629791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965629770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &965629792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965629770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &970075248
 GameObject:
   m_ObjectHideFlags: 0
@@ -6605,11 +6875,14 @@ GameObject:
   - component: {fileID: 1128957459}
   - component: {fileID: 1128957464}
   - component: {fileID: 1128957470}
-  - component: {fileID: 1128957471}
   - component: {fileID: 1128957475}
   - component: {fileID: 1128957474}
   - component: {fileID: 1128957472}
   - component: {fileID: 1128957476}
+  - component: {fileID: 1128957480}
+  - component: {fileID: 1128957479}
+  - component: {fileID: 1128957478}
+  - component: {fileID: 1128957477}
   m_Layer: 0
   m_Name: Rat_08
   m_TagString: Untagged
@@ -6805,34 +7078,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &1128957471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128957458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &1128957472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6919,6 +7164,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &1128957477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128957458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &1128957478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128957458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &1128957479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128957458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &1128957480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128957458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &1130683032
 GameObject:
   m_ObjectHideFlags: 0
@@ -8957,11 +9272,14 @@ GameObject:
   - component: {fileID: 1553269000}
   - component: {fileID: 1553269005}
   - component: {fileID: 1553269011}
-  - component: {fileID: 1553269012}
   - component: {fileID: 1553269016}
   - component: {fileID: 1553269015}
   - component: {fileID: 1553269013}
   - component: {fileID: 1553269017}
+  - component: {fileID: 1553269021}
+  - component: {fileID: 1553269020}
+  - component: {fileID: 1553269019}
+  - component: {fileID: 1553269018}
   m_Layer: 0
   m_Name: Rat_04
   m_TagString: Untagged
@@ -9157,34 +9475,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &1553269012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1553268999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &1553269013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9271,6 +9561,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &1553269018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553268999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &1553269019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553268999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &1553269020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553268999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &1553269021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553268999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &1567961459
 GameObject:
   m_ObjectHideFlags: 0
@@ -9544,11 +9904,14 @@ GameObject:
   - component: {fileID: 1746887207}
   - component: {fileID: 1746887212}
   - component: {fileID: 1746887218}
-  - component: {fileID: 1746887219}
   - component: {fileID: 1746887223}
   - component: {fileID: 1746887222}
   - component: {fileID: 1746887220}
   - component: {fileID: 1746887224}
+  - component: {fileID: 1746887228}
+  - component: {fileID: 1746887227}
+  - component: {fileID: 1746887226}
+  - component: {fileID: 1746887225}
   m_Layer: 0
   m_Name: Rat_03
   m_TagString: Untagged
@@ -9744,34 +10107,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &1746887219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1746887206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &1746887220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9858,6 +10193,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &1746887225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746887206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &1746887226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746887206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &1746887227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746887206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &1746887228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746887206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1 &1907348308
 GameObject:
   m_ObjectHideFlags: 0
@@ -11017,11 +11422,14 @@ GameObject:
   - component: {fileID: 2126855115}
   - component: {fileID: 2126855120}
   - component: {fileID: 2126855126}
-  - component: {fileID: 2126855127}
   - component: {fileID: 2126855131}
   - component: {fileID: 2126855130}
   - component: {fileID: 2126855128}
   - component: {fileID: 2126855132}
+  - component: {fileID: 2126855136}
+  - component: {fileID: 2126855135}
+  - component: {fileID: 2126855134}
+  - component: {fileID: 2126855133}
   m_Layer: 0
   m_Name: Rat_07
   m_TagString: Untagged
@@ -11217,34 +11625,6 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: b26359b374dbf2c4a834e2ae7b97df29, type: 2}
   grantLootOnlyOnce: 1
   wasLooted: 0
---- !u!114 &2126855127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2126855114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cd9063564f98e542b228a40e6fb1a38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
-  targetRenderer: {fileID: 0}
-  healthBarOffset: {x: 0, y: 0.55, z: 0}
-  healthBarSize: {x: 0.62, y: 0.08}
-  hideHealthBarWhenFull: 1
-  textSpawnOffset: {x: 0, y: 0.65, z: 0}
-  textFloatOffset: {x: 0, y: 0.55, z: 0}
-  textLifetime: 0.8
-  textFontSize: 3
-  flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashSeconds: 0.08
-  corpseDespawnDelay: 18
-  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
-  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
-  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  damageTextColor: {r: 1, g: 0.22, b: 0.16, a: 1}
 --- !u!114 &2126855128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11331,6 +11711,76 @@ MonoBehaviour:
   selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
   frameSize: {x: 0.72, y: 0.58}
   frameThickness: 0.05
+--- !u!114 &2126855133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126855114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: febc67257b35e8a40a69b6f258f7b300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CorpseDecayController
+  targetRenderer: {fileID: 0}
+  despawnDelay: 18
+  freshCorpseColor: {r: 0.46, g: 0.34, b: 0.28, a: 1}
+  decayedCorpseColor: {r: 0.18, g: 0.14, b: 0.12, a: 1}
+  disableAfterDecay: 1
+--- !u!114 &2126855134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126855114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017105da776947e4f803debedab5cbb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HitFlashPresenter
+  targetRenderer: {fileID: 0}
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashSeconds: 0.08
+--- !u!114 &2126855135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126855114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
+  spawnOffset: {x: 0, y: 0.65, z: 0}
+  floatOffset: {x: 0, y: 0.55, z: 0}
+  lifetime: 0.8
+  fontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
+--- !u!114 &2126855136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126855114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
+  barRoot: {fileID: 0}
+  fillRenderer: {fileID: 0}
+  backgroundRenderer: {fileID: 0}
+  worldOffset: {x: 0, y: 0.55, z: 0}
+  size: {x: 0.62, y: 0.08}
+  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideWhenFull: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
