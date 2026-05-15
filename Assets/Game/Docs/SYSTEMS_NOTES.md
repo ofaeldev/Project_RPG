@@ -67,6 +67,9 @@ Important:
 
 Core script:
 - `Assets/Game/Scripts/Systems/UI/QuestLogUIController.cs`
+- `Assets/Game/Scripts/Systems/UI/QuestLogPanelView.cs`
+- `Assets/Game/Scripts/Systems/UI/QuestLogContentFormatter.cs`
+- `Assets/Game/Scripts/Systems/UI/QuestLogKeyboardInput.cs`
 
 Implemented:
 - Canvas UI button named `QuestLogToggleButton`.
@@ -74,9 +77,11 @@ Implemented:
 - Opens/closes via UI button or keyboard key `J`.
 - Reads quest entries through `QuestManager.GetQuestLogEntries()`.
 - Shows quest title, state, description, objective progress, and reward text.
+- Keeps panel state, keyboard input, and text formatting outside the MonoBehaviour.
 
 Important:
 - UI should read quest data through `QuestManager.GetQuestLogEntries()`, not through internal dictionaries.
+- Formatting should stay in `QuestLogContentFormatter` so the controller remains a thin event/UI orchestrator.
 
 ## NPC Quest Indicator
 
