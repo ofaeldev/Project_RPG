@@ -335,22 +335,20 @@ Future decision:
 Scene:
 - `Assets/Game/Scenes/TutorialScene.unity`
 
-Connected on `Managers`:
-- `DialogueManager`
-- `QuestManager`
-- `InventoryManager`
-- `GameplayInputBlocker`
-- `InventoryWorldDropper`
-- `LootService`
-- `GameProgressSaveManager`
+Connected under `Managers`:
+- `Dialogue System`: `DialogueManager`, `QuestManager`
+- `Inventory System`: `InventoryManager`, `InventoryWorldDropper`
+- `Loot System`: `LootService`
+- `Gameplay System`: `GameplayInputBlocker`
+- `Save System`: `GameProgressSaveManager`
 
-Connected on `UIManager`:
-- `GameplayUIManager`
-- `DialogueUIController`
-- `GlobalFeedbackUIController`
-- `QuestLogUIController`
-- `InventoryUIController`
-- `CombatFollowToggleUIController`
+Connected under `UIManager`:
+- `Gameplay UI System`: `GameplayUIManager`, `GlobalFeedbackUIController`
+- `Dialogue UI System`: `DialogueUIController`
+- `Quest Log UI System`: `QuestLogUIController`
+- `Inventory UI System`: `InventoryUIController`
+- `Loot UI System`: `LootUIController`
+- `Combat UI System`: `CombatFollowToggleUIController`
 
 Connected on Canvas:
 - Dialogue panel and choice buttons.

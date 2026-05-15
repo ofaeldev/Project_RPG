@@ -248,17 +248,30 @@ public static class TutorialQuestSceneBuilder
     private static GameObject CreateManagers()
     {
         GameObject managers = new("Managers");
-        managers.AddComponent<DialogueManager>();
-        managers.AddComponent<QuestManager>();
-        managers.AddComponent<InventoryManager>();
-        managers.AddComponent<GameplayInputBlocker>();
-        managers.AddComponent<InventoryWorldDropper>();
-        managers.AddComponent<LootService>();
-        GameProgressSaveManager saveManager = managers.AddComponent<GameProgressSaveManager>();
+        GameObject dialogueSystem = CreateSystemObject(managers.transform, "Dialogue System");
+        GameObject inventorySystem = CreateSystemObject(managers.transform, "Inventory System");
+        GameObject lootSystem = CreateSystemObject(managers.transform, "Loot System");
+        GameObject gameplaySystem = CreateSystemObject(managers.transform, "Gameplay System");
+        GameObject saveSystem = CreateSystemObject(managers.transform, "Save System");
+
+        dialogueSystem.AddComponent<DialogueManager>();
+        dialogueSystem.AddComponent<QuestManager>();
+        inventorySystem.AddComponent<InventoryManager>();
+        inventorySystem.AddComponent<InventoryWorldDropper>();
+        lootSystem.AddComponent<LootService>();
+        gameplaySystem.AddComponent<GameplayInputBlocker>();
+        GameProgressSaveManager saveManager = saveSystem.AddComponent<GameProgressSaveManager>();
         SetString(saveManager, "playerPrefsKey", "RPGProject.TutorialQuestScene.Progress");
         SetBool(saveManager, "loadOnStart", false);
         SetBool(saveManager, "saveOnQuit", false);
         return managers;
+    }
+
+    private static GameObject CreateSystemObject(Transform parent, string name)
+    {
+        GameObject systemObject = new(name);
+        systemObject.transform.SetParent(parent, false);
+        return systemObject;
     }
 
     private static void CreateCamera()
@@ -275,13 +288,20 @@ public static class TutorialQuestSceneBuilder
     private static void BuildUi(GameObject managers)
     {
         GameObject uiManager = new("UIManager");
-        GameplayUIManager gameplayUi = uiManager.AddComponent<GameplayUIManager>();
-        DialogueUIController dialogueUi = uiManager.AddComponent<DialogueUIController>();
-        GlobalFeedbackUIController feedbackUi = uiManager.AddComponent<GlobalFeedbackUIController>();
-        QuestLogUIController questLogUi = uiManager.AddComponent<QuestLogUIController>();
-        InventoryUIController inventoryUi = uiManager.AddComponent<InventoryUIController>();
-        LootUIController lootUi = uiManager.AddComponent<LootUIController>();
-        CombatFollowToggleUIController followToggleUi = uiManager.AddComponent<CombatFollowToggleUIController>();
+        GameObject gameplayUiSystem = CreateSystemObject(uiManager.transform, "Gameplay UI System");
+        GameObject dialogueUiSystem = CreateSystemObject(uiManager.transform, "Dialogue UI System");
+        GameObject questLogUiSystem = CreateSystemObject(uiManager.transform, "Quest Log UI System");
+        GameObject inventoryUiSystem = CreateSystemObject(uiManager.transform, "Inventory UI System");
+        GameObject lootUiSystem = CreateSystemObject(uiManager.transform, "Loot UI System");
+        GameObject combatUiSystem = CreateSystemObject(uiManager.transform, "Combat UI System");
+
+        GameplayUIManager gameplayUi = gameplayUiSystem.AddComponent<GameplayUIManager>();
+        GlobalFeedbackUIController feedbackUi = gameplayUiSystem.AddComponent<GlobalFeedbackUIController>();
+        DialogueUIController dialogueUi = dialogueUiSystem.AddComponent<DialogueUIController>();
+        QuestLogUIController questLogUi = questLogUiSystem.AddComponent<QuestLogUIController>();
+        InventoryUIController inventoryUi = inventoryUiSystem.AddComponent<InventoryUIController>();
+        LootUIController lootUi = lootUiSystem.AddComponent<LootUIController>();
+        CombatFollowToggleUIController followToggleUi = combatUiSystem.AddComponent<CombatFollowToggleUIController>();
         SetObject(gameplayUi, "feedbackController", feedbackUi);
 
         GameObject canvasObject = new("Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
