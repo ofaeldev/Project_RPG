@@ -30,18 +30,27 @@ namespace RPGProject.Gameplay
 
         public bool IsMet()
         {
-            return !HasRequirement
-                || (InventoryManager.Instance != null && InventoryManager.Instance.HasItem(ItemId, Amount));
+            return IsMet(InventoryManager.Instance);
+        }
+
+        public bool IsMet(IInventoryService inventory)
+        {
+            return !HasRequirement || (inventory != null && inventory.HasItem(ItemId, Amount));
         }
 
         public bool TryConsume()
+        {
+            return TryConsume(InventoryManager.Instance);
+        }
+
+        public bool TryConsume(IInventoryService inventory)
         {
             if (!HasRequirement || !consumeOnSuccess)
             {
                 return true;
             }
 
-            return InventoryManager.Instance != null && InventoryManager.Instance.RemoveItem(ItemId, Amount);
+            return inventory != null && inventory.RemoveItem(ItemId, Amount);
         }
 
         public string GetDisplayText()

@@ -36,6 +36,9 @@ namespace RPGProject.Gameplay
         public bool WasOpened => wasOpened;
         public IReadOnlyList<ItemStackDefinition> Loot => loot;
 
+        private readonly LootClaimService lootClaimService = new();
+        private readonly InventoryRequirementService requirementService = new();
+
         public override RightClickActionType GetPreferredRightClickAction(Vector2 clickPosition)
         {
             return RightClickActionType.Open;
@@ -71,20 +74,7 @@ namespace RPGProject.Gameplay
 
         public int ClaimAllLoot()
         {
-            if (InventoryManager.Instance == null || loot == null)
-            {
-                return 0;
-            }
-
-            int grantedStacks = 0;
-            foreach (ItemStackDefinition stack in loot)
-            {
-                if (stack != null && stack.IsValid && InventoryManager.Instance.AddItem(stack.Item, stack.Amount))
-                {
-                    grantedStacks++;
-                }
-            }
-
+            int grantedStacks = lootClaimService.ClaimAll(loot, InventoryManager.Instance);
             wasOpened = grantLootOnlyOnce || grantedStacks > 0;
             return grantedStacks;
         }
@@ -102,17 +92,7 @@ namespace RPGProject.Gameplay
 
         private bool TryUnlock()
         {
-            if (!unlockRequirement.HasRequirement)
-            {
-                return false;
-            }
-
-            if (!unlockRequirement.IsMet())
-            {
-                return false;
-            }
-
-            if (!unlockRequirement.TryConsume())
+            if (!requirementService.TrySatisfy(unlockRequirement, InventoryManager.Instance))
             {
                 return false;
             }

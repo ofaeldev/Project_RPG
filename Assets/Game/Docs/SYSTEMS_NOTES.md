@@ -155,7 +155,8 @@ Implemented:
 - `ItemDefinition` ScriptableObject with stable `itemId`, display name, description, category, icon, and stacking rules.
 - `ItemStackDefinition` for Inspector-configured item/amount pairs.
 - `InventoryManager` owns all runtime item ownership and item amounts.
-- `InventoryRequirement` centralizes item requirement checks/consume logic for doors, containers, and conditions.
+- `InventoryRequirement` centralizes item requirement data and checks/consume logic for doors, containers, and conditions.
+- `InventoryRequirementService` isolates requirement satisfaction against `IInventoryService` so locked interactions do not duplicate check/consume flow.
 - Inventory supports add/remove/has/get amount by `ItemDefinition` or item id.
 - Items can optionally reference an `ItemUseEffect` ScriptableObject.
 - `InventoryManager.TryUseItem()` runs the item effect, shows feedback, and consumes one item only when `consumeOnUse` is enabled and the effect succeeds.
@@ -177,6 +178,7 @@ Implemented:
 - Inventory world-drop flow is isolated in `InventoryDropFlow`.
 - Loot UI opens any `ILootSource`, not only containers.
 - `LootService` centralizes loot flow: open loot UI when available, fallback to claim-all, and player-facing loot feedback.
+- `LootClaimService` isolates loot stack transfer into inventory so containers/corpses do not duplicate add-item loops.
 - Dead enemies can expose loot through `CorpseLootSource` while reusing the same loot UI.
 - Loot tables roll entries once per corpse, with per-item chance and min/max amount.
 
@@ -195,7 +197,7 @@ Important:
 - Do not create separate item ownership on doors, containers, quests, or pickups. They should query `InventoryManager`.
 - Future item conditions for quests/dialogue should query `InventoryManager`.
 - Do not put item-specific use logic in `InventoryManager`. Create/assign an `ItemUseEffect` asset instead.
-- Do not duplicate item lock checks. Use `InventoryRequirement`.
+- Do not duplicate item lock checks. Use `InventoryRequirement` and satisfy/consume it through `InventoryRequirementService`.
 - Do not create dropped-item logic inside UI slots. Use `InventoryWorldDropper`.
 - Do not open `LootUIController` or show loot claim feedback directly from interaction targets. Use `LootService`.
 - Loot sources should own content/state/claim rules, but not decide UI flow.
@@ -287,6 +289,7 @@ Implemented:
 - Loot panel view operations are isolated in `LootPanelView`.
 - Loot content text formatting is isolated in `LootContentFormatter`.
 - Loot keyboard shortcuts are isolated in `LootKeyboardInput`.
+- Loot stack claiming is isolated in `LootClaimService`.
 - If no `LootUIController` exists, containers still fallback to granting all loot immediately.
 - `EnemyInteractionTarget` and `ContainerInteractionTarget` delegate loot flow to `LootService`.
 
@@ -409,6 +412,8 @@ Implemented in the latest pass:
 - Extracted loot panel view, content formatting, and keyboard shortcut handling into `LootPanelView`, `LootContentFormatter`, and `LootKeyboardInput`.
 - Extracted inventory selection/drag flow, slot transfer, and world-drop orchestration into `InventoryInteractionFlow`, `InventorySlotTransferService`, and `InventoryDropFlow`.
 - Extracted inventory refresh and slot/details/button presentation into `InventoryPresenter`.
+- Extracted loot stack transfer into pure `LootClaimService`, and `ContainerInteractionTarget` now delegates inventory add-item loops to it.
+- Extracted inventory requirement satisfaction into pure `InventoryRequirementService`, and doors/containers now delegate unlock check/consume flow to it.
 - Reduced hard target lookup in `EnemyCombatController` and `CinemachinePlayerFollower` by adding serialized/injected target references with existing lookup kept as fallback.
 - Tutorial scene and `TutorialQuestSceneBuilder` now include `LootService` on `Managers`.
 - `PlayerInputReader` is now the single player input capture layer. `PlayerMovementController` and `PlayerActionController` consume it as intent bridges.

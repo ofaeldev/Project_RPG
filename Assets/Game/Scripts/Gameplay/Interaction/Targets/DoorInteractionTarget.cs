@@ -27,6 +27,8 @@ namespace RPGProject.Gameplay
         public bool IsOpen => isOpen;
         public bool IsLocked => isLocked;
 
+        private readonly InventoryRequirementService requirementService = new();
+
         public override RightClickActionType GetPreferredRightClickAction(Vector2 clickPosition)
         {
             return RightClickActionType.Open;
@@ -68,17 +70,7 @@ namespace RPGProject.Gameplay
 
         private bool TryUnlock()
         {
-            if (!unlockRequirement.HasRequirement)
-            {
-                return false;
-            }
-
-            if (!unlockRequirement.IsMet())
-            {
-                return false;
-            }
-
-            if (!unlockRequirement.TryConsume())
+            if (!requirementService.TrySatisfy(unlockRequirement, InventoryManager.Instance))
             {
                 return false;
             }

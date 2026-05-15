@@ -25,6 +25,7 @@ namespace RPGProject.Gameplay
 
         private static readonly ItemStackDefinition[] EmptyLoot = new ItemStackDefinition[0];
         private readonly List<ItemStackDefinition> rolledLoot = new();
+        private readonly LootClaimService lootClaimService = new();
         private HealthComponent health;
         private bool hasRolledLoot;
 
@@ -72,25 +73,12 @@ namespace RPGProject.Gameplay
         {
             EnsureLootRolled();
 
-            if (InventoryManager.Instance == null)
-            {
-                return 0;
-            }
-
             if (grantLootOnlyOnce && wasLooted)
             {
                 return 0;
             }
 
-            int grantedStacks = 0;
-            foreach (ItemStackDefinition stack in rolledLoot)
-            {
-                if (stack != null && stack.IsValid && InventoryManager.Instance.AddItem(stack.Item, stack.Amount))
-                {
-                    grantedStacks++;
-                }
-            }
-
+            int grantedStacks = lootClaimService.ClaimAll(rolledLoot, InventoryManager.Instance);
             wasLooted = grantLootOnlyOnce || grantedStacks > 0;
             return grantedStacks;
         }

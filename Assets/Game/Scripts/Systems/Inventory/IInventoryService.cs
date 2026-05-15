@@ -10,6 +10,8 @@ namespace RPGProject.Systems
 
         bool AddItem(ItemDefinition item, int amount = 1);
         bool CanAddItem(ItemDefinition item, int amount = 1);
+        bool HasItem(string itemId, int amount = 1);
+        bool RemoveItem(string itemId, int amount = 1);
         bool TryUseSlot(int slotIndex, ItemUseContext context, out ItemUseResult result);
     }
 }
