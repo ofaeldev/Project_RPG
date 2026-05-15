@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: 26bef914c0b70e4409d57f0bb86dd4da
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4783190842005446777
+    second: dialogue_ui_polish_preview_0
+  - first:
+      213: 5386657842527503438
+    second: dialogue_ui_polish_preview_1
+  - first:
+      213: 4161110489545627437
+    second: dialogue_ui_polish_preview_2
+  - first:
+      213: 1502806011716337077
+    second: dialogue_ui_polish_preview_3
+  - first:
+      213: -7389269294465128797
+    second: dialogue_ui_polish_preview_4
+  - first:
+      213: 350915420025146022
+    second: dialogue_ui_polish_preview_5
+  - first:
+      213: -4985732700101163289
+    second: dialogue_ui_polish_preview_6
+  - first:
+      213: -5572193933938581758
+    second: dialogue_ui_polish_preview_7
+  - first:
+      213: -957990922110405058
+    second: dialogue_ui_polish_preview_8
+  - first:
+      213: -7305493051363187150
+    second: dialogue_ui_polish_preview_9
+  - first:
+      213: 2137873246705648820
+    second: dialogue_ui_polish_preview_10
+  - first:
+      213: 7838529430778954979
+    second: dialogue_ui_polish_preview_11
+  - first:
+      213: -3769578139497628717
+    second: dialogue_ui_polish_preview_12
+  - first:
+      213: -4680854892803962126
+    second: dialogue_ui_polish_preview_13
+  - first:
+      213: -7404315349800207755
+    second: dialogue_ui_polish_preview_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_0
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 829
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 970e2a67abe416240800000000000000
+      internalID: 4783190842005446777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_1
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 829
+        width: 55
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e448c6e94c041ca40800000000000000
+      internalID: 5386657842527503438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_2
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 829
+        width: 55
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d27d48891fb3fb930800000000000000
+      internalID: 4161110489545627437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_3
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 829
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bd7caefa1a0bd410800000000000000
+      internalID: 1502806011716337077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_4
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 829
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a664b90aba047990800000000000000
+      internalID: -7389269294465128797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_5
+      rect:
+        serializedVersion: 2
+        x: 1036
+        y: 880
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6aa4ecc17b3bed400800000000000000
+      internalID: 350915420025146022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_6
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 880
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e6cb69568e1fcab0800000000000000
+      internalID: -4985732700101163289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_7
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 764
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20f110cc3279ba2b0800000000000000
+      internalID: -5572193933938581758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_8
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 764
+        width: 55
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e367f8df45884b2f0800000000000000
+      internalID: -957990922110405058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_9
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 764
+        width: 55
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 236a964a6ccad9a90800000000000000
+      internalID: -7305493051363187150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_10
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 764
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b483b414604bad10800000000000000
+      internalID: 2137873246705648820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_11
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 764
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e4460bacfc08cc60800000000000000
+      internalID: 7838529430778954979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_12
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 688
+        width: 56
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3db7a2a77a4cfabc0800000000000000
+      internalID: -3769578139497628717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_13
+      rect:
+        serializedVersion: 2
+        x: 932
+        y: 512
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fa454576434a0fb0800000000000000
+      internalID: -4680854892803962126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dialogue_ui_polish_preview_14
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 512
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57abf2a4b669e3990800000000000000
+      internalID: -7404315349800207755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      dialogue_ui_polish_preview_0: 4783190842005446777
+      dialogue_ui_polish_preview_1: 5386657842527503438
+      dialogue_ui_polish_preview_10: 2137873246705648820
+      dialogue_ui_polish_preview_11: 7838529430778954979
+      dialogue_ui_polish_preview_12: -3769578139497628717
+      dialogue_ui_polish_preview_13: -4680854892803962126
+      dialogue_ui_polish_preview_14: -7404315349800207755
+      dialogue_ui_polish_preview_2: 4161110489545627437
+      dialogue_ui_polish_preview_3: 1502806011716337077
+      dialogue_ui_polish_preview_4: -7389269294465128797
+      dialogue_ui_polish_preview_5: 350915420025146022
+      dialogue_ui_polish_preview_6: -4985732700101163289
+      dialogue_ui_polish_preview_7: -5572193933938581758
+      dialogue_ui_polish_preview_8: -957990922110405058
+      dialogue_ui_polish_preview_9: -7305493051363187150
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

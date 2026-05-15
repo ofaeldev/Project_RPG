@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d22af18254be2468be8926988a25cb, type: 3}
+  m_Name: MistRatPelt
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Gameplay.ItemDefinition
+  itemId: MistRatPelt
+  displayName: Pele de Rato da Nevoa
+  description: Uma pequena pele manchada pela nevoa. Serve como loot de teste para
+    validar corpos saqueaveis.
+  category: 0
+  icon: {fileID: 0}
+  useEffect: {fileID: 0}
+  consumeOnUse: 0
+  isStackable: 1
+  maxStackSize: 99

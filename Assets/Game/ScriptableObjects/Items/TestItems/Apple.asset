@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d22af18254be2468be8926988a25cb, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Gameplay.ItemDefinition
+  itemId: apple
+  displayName: Apple
+  description: Fruta de teste que pode ser consumida.
+  category: 0
+  icon: {fileID: 0}
+  useEffect: {fileID: 11400000, guid: 6c7e87b3993d01d4793c039389e41134, type: 2}
+  consumeOnUse: 1
+  isStackable: 1
+  maxStackSize: 100
