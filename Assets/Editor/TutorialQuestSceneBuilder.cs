@@ -171,7 +171,6 @@ public static class TutorialQuestSceneBuilder
         player.AddComponent<CharacterMotor2D>();
         HealthComponent playerHealth = player.AddComponent<HealthComponent>();
         CombatActor playerCombatActor = player.AddComponent<CombatActor>();
-        player.AddComponent<HealthChangeFeedbackPresenter>();
         player.AddComponent<HitFlashPresenter>();
         player.AddComponent<PlayerMovementController>();
         AutoAttackController autoAttack = player.AddComponent<AutoAttackController>();
@@ -219,8 +218,6 @@ public static class TutorialQuestSceneBuilder
             CharacterMotor2D ratMotor = rat.AddComponent<CharacterMotor2D>();
             HealthComponent ratHealth = rat.AddComponent<HealthComponent>();
             CombatActor ratCombatActor = rat.AddComponent<CombatActor>();
-            rat.AddComponent<HealthBarPresenter>();
-            rat.AddComponent<HealthChangeFeedbackPresenter>();
             rat.AddComponent<HitFlashPresenter>();
             rat.AddComponent<CorpseDecayController>();
             EnemyCombatController ratCombat = rat.AddComponent<EnemyCombatController>();
@@ -302,6 +299,7 @@ public static class TutorialQuestSceneBuilder
         InventoryUIController inventoryUi = inventoryUiSystem.AddComponent<InventoryUIController>();
         LootUIController lootUi = lootUiSystem.AddComponent<LootUIController>();
         CombatFollowToggleUIController followToggleUi = combatUiSystem.AddComponent<CombatFollowToggleUIController>();
+        combatUiSystem.AddComponent<CombatWorldUIController>();
         SetObject(gameplayUi, "feedbackController", feedbackUi);
 
         GameObject canvasObject = new("Canvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));

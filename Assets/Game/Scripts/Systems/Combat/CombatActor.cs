@@ -44,19 +44,6 @@ namespace RPGProject.Systems
         [SerializeField]
         private bool selectTargets = true;
 
-        [SerializeField]
-        private GameObject selectionFrameRoot;
-
-        [SerializeField]
-        private Color selectedFrameColor = new(1f, 0.22f, 0.16f, 1f);
-
-        [SerializeField]
-        private Vector2 frameSize = new(0.72f, 0.58f);
-
-        [SerializeField]
-        [Min(0.01f)]
-        private float frameThickness = 0.05f;
-
         private HealthComponent health;
         private CombatActor currentTargetActor;
         private HealthComponent currentTargetHealth;
@@ -200,8 +187,6 @@ namespace RPGProject.Systems
             }
 
             isSelected = selected;
-            EnsureSelectionPresenter();
-            GetComponent<CombatSelectionPresenter>()?.SetSelectedImmediate(isSelected);
 
             if (isSelected)
             {
@@ -216,7 +201,6 @@ namespace RPGProject.Systems
         private void Awake()
         {
             ResolveHealth();
-            EnsureSelectionPresenter();
         }
 
         private void OnEnable()
@@ -335,17 +319,6 @@ namespace RPGProject.Systems
         {
             SetSelected(false);
             Defeated?.Invoke(this, change);
-        }
-
-        private void EnsureSelectionPresenter()
-        {
-            if (!selectTargets || GetComponent<CombatSelectionPresenter>() != null)
-            {
-                return;
-            }
-
-            CombatSelectionPresenter presenter = gameObject.AddComponent<CombatSelectionPresenter>();
-            presenter.Configure(selectedFrameColor, frameSize, frameThickness);
         }
     }
 }

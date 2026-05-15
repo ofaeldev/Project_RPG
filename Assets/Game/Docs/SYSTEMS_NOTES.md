@@ -225,9 +225,8 @@ Core scripts:
 - `Assets/Game/Scripts/Systems/Combat/AutoAttackController.cs`
 - `Assets/Game/Scripts/Systems/Combat/EnemyCombatController.cs`
 - `Assets/Game/Scripts/Systems/Combat/CombatFollowToggleUIController.cs`
-- `Assets/Game/Scripts/Systems/Combat/HealthChangeFeedbackPresenter.cs`
+- `Assets/Game/Scripts/Systems/Combat/CombatWorldUIController.cs`
 - `Assets/Game/Scripts/Systems/Combat/FloatingCombatText.cs`
-- `Assets/Game/Scripts/Systems/Combat/HealthBarPresenter.cs`
 - `Assets/Game/Scripts/Systems/Combat/HitFlashPresenter.cs`
 - `Assets/Game/Scripts/Systems/Combat/CorpseDecayController.cs`
 - `Assets/Game/Scripts/Gameplay/Combat/CorpseLootSource.cs`
@@ -248,17 +247,15 @@ Implemented:
 - When player target follow is disabled and the selected target is out of range, `AutoAttackController` routes the attempt through `CombatActor.AttackOutOfRange` and requests a warning via `GameplayUIEvents`.
 - `CombatAttackSettings` stores starter attack range, damage, and attack cadence.
 - `DamageResolver` is the extension point for future hit formulas; `BasicDamageResolver` currently combines base damage, attack, and defense.
-- `CombatActor` centralizes combat identity and attack execution for players and enemies: stats, current target, target selection frame, targetability, attack range checks, attack cooldown, damage resolution, damage application, and combat events.
-- `CombatSelectionPresenter` owns combat selection visuals for `CombatActor` and legacy `CombatTarget`; combat components publish selection state instead of building frame visuals directly.
+- `CombatActor` centralizes combat identity and attack execution for players and enemies: stats, current target, targetability, attack range checks, attack cooldown, damage resolution, damage application, and combat events.
+- `CombatWorldUIController` lives under `UIManager/Combat UI System` and owns combat selection frames, enemy health bars, and floating combat text from `HealthComponent`/`CombatActor` events.
 - `AutoAttackController` now owns player-specific combat decisions only: follow target, chase selected target, and request attacks through `CombatActor`.
 - `EnemyCombatController` now owns enemy AI decisions only: acquire player, chase/hold/flee, and request attacks through `CombatActor`.
 - `CombatTarget` remains for compatibility/tests, but new combatants should use `CombatActor` as their targetable component.
-- `HealthChangeFeedbackPresenter` listens to `HealthComponent.HealthChanged` and spawns floating combat text for damage/healing.
 - `FloatingCombatText` animates hit values upward and fades them out, so future variable-hit systems only need to publish the final damage through `HealthComponent`.
-- `HealthBarPresenter` shows an enemy health bar above damaged targets.
 - `HitFlashPresenter` briefly flashes a target sprite when damage lands.
 - `CorpseDecayController` leaves dead enemies in the world for loot, darkens them over time, then disables the body.
-- Tutorial enemies now use the smaller visual presenters directly instead of a combined enemy-only visual component.
+- Player/enemy objects no longer carry combat UI presenters; they publish state and the combat UI system renders world UI centrally.
 - `CorpseLootSource` owns corpse loot contents and one-time loot state.
 - `EnemyCombatController` gives enemies a simple combat loop: acquire player, optionally chase, attack in range, or flee if behavior settings request it.
 - `EnemyCombatBehaviorSettings` stores enemy combat style data so future melee, ranged, coward, caster, stealth, or other archetypes can branch by data instead of hard-coded enemy classes.
@@ -353,7 +350,7 @@ Connected under `UIManager`:
 - `Quest Log UI System`: `QuestLogUIController`
 - `Inventory UI System`: `InventoryUIController`
 - `Loot UI System`: `LootUIController`
-- `Combat UI System`: `CombatFollowToggleUIController`
+- `Combat UI System`: `CombatFollowToggleUIController`, `CombatWorldUIController`
 
 Connected on Canvas:
 - Dialogue panel and choice buttons.
@@ -402,7 +399,7 @@ Implemented in the latest pass:
 - `LootUIController`, `EnemyInteractionTarget`, and `ContainerInteractionTarget` now delegate loot claim/open decisions to `LootService`.
 - `CorpseLootSource` and `ContainerInteractionTarget` keep loot state/claim logic but no longer own player-facing loot feedback.
 - Added follow-off out-of-range combat feedback through `CombatActor.AttackOutOfRange` and `GameplayUIEvents`.
-- Extracted combat selection visuals into `CombatSelectionPresenter`.
+- Moved combat selection frames, enemy health bars, and floating combat text into `CombatWorldUIController` on `UIManager/Combat UI System`.
 - Extracted feedback cooldown policy into `FeedbackRateLimiter` and `GameplayFeedbackMessage`.
 - Extracted save storage/snapshot helpers into `ISaveStorage`, `PlayerPrefsSaveStorage`, `GameProgressSaveData`, and `WorldStateSnapshotService`.
 - Extracted quest reward granting and quest log projection into `QuestRewardService` and `QuestLogProjection`.

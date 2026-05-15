@@ -7,20 +7,6 @@ namespace RPGProject.Gameplay
     [RequireComponent(typeof(HealthComponent))]
     public sealed class CombatTarget : MonoBehaviour
     {
-        [Header("Selection")]
-        [SerializeField]
-        private GameObject selectionFrameRoot;
-
-        [SerializeField]
-        private Color selectedFrameColor = new(1f, 0.22f, 0.16f, 1f);
-
-        [SerializeField]
-        private Vector2 frameSize = new(0.72f, 0.58f);
-
-        [SerializeField]
-        [Min(0.01f)]
-        private float frameThickness = 0.05f;
-
         private HealthComponent health;
         private bool isSelected;
 
@@ -35,7 +21,6 @@ namespace RPGProject.Gameplay
         private void Awake()
         {
             ResolveHealth();
-            EnsureSelectionPresenter();
         }
 
         private void OnEnable()
@@ -63,8 +48,6 @@ namespace RPGProject.Gameplay
             }
 
             isSelected = selected;
-            EnsureSelectionPresenter();
-            GetComponent<Systems.CombatSelectionPresenter>()?.SetSelectedImmediate(isSelected);
 
             if (isSelected)
             {
@@ -84,17 +67,6 @@ namespace RPGProject.Gameplay
             }
 
             return health;
-        }
-
-        private void EnsureSelectionPresenter()
-        {
-            if (GetComponent<Systems.CombatSelectionPresenter>() != null)
-            {
-                return;
-            }
-
-            Systems.CombatSelectionPresenter presenter = gameObject.AddComponent<Systems.CombatSelectionPresenter>();
-            presenter.Configure(selectedFrameColor, frameSize, frameThickness);
         }
 
         private void OnDied(HealthChange change)

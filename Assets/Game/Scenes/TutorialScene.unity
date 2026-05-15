@@ -1092,8 +1092,6 @@ GameObject:
   - component: {fileID: 225649423}
   - component: {fileID: 225649436}
   - component: {fileID: 225649440}
-  - component: {fileID: 225649444}
-  - component: {fileID: 225649443}
   - component: {fileID: 225649442}
   - component: {fileID: 225649441}
   m_Layer: 0
@@ -1373,10 +1371,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &225649441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1409,44 +1403,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &225649443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225649422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &225649444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225649422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &253828505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,8 +1559,6 @@ GameObject:
   - component: {fileID: 310610693}
   - component: {fileID: 310610691}
   - component: {fileID: 310610695}
-  - component: {fileID: 310610699}
-  - component: {fileID: 310610698}
   - component: {fileID: 310610697}
   - component: {fileID: 310610696}
   m_Layer: 0
@@ -1884,10 +1838,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &310610696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1920,44 +1870,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &310610698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310610677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &310610699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310610677}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &365393120
 GameObject:
   m_ObjectHideFlags: 0
@@ -2554,8 +2466,6 @@ GameObject:
   - component: {fileID: 533891788}
   - component: {fileID: 533891786}
   - component: {fileID: 533891790}
-  - component: {fileID: 533891794}
-  - component: {fileID: 533891793}
   - component: {fileID: 533891792}
   - component: {fileID: 533891791}
   m_Layer: 0
@@ -2835,10 +2745,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &533891791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2871,44 +2777,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &533891793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533891772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &533891794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533891772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &540380015
 GameObject:
   m_ObjectHideFlags: 0
@@ -3065,8 +2933,6 @@ GameObject:
   - component: {fileID: 551658463}
   - component: {fileID: 551658461}
   - component: {fileID: 551658465}
-  - component: {fileID: 551658469}
-  - component: {fileID: 551658468}
   - component: {fileID: 551658467}
   - component: {fileID: 551658466}
   m_Layer: 0
@@ -3346,10 +3212,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &551658466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3382,44 +3244,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &551658468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551658447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &551658469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551658447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &587067596
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,7 +3548,6 @@ GameObject:
   - component: {fileID: 664511266}
   - component: {fileID: 664511276}
   - component: {fileID: 664511275}
-  - component: {fileID: 664511277}
   - component: {fileID: 664511278}
   - component: {fileID: 664511279}
   - component: {fileID: 664511281}
@@ -3960,24 +3783,6 @@ MonoBehaviour:
   fallbackAttackInterval: 1
   followTarget: 1
   outOfRangeFollowDisabledMessage: Alvo fora de alcance. Aproxime-se ou ative Follow.
---- !u!114 &664511277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 664511265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
 --- !u!114 &664511278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4027,10 +3832,6 @@ MonoBehaviour:
   fallbackDamage: 5
   fallbackAttackInterval: 1
   selectTargets: 1
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!1 &674685003
 GameObject:
   m_ObjectHideFlags: 0
@@ -5117,8 +4918,6 @@ GameObject:
   - component: {fileID: 830002597}
   - component: {fileID: 830002595}
   - component: {fileID: 830002599}
-  - component: {fileID: 830002603}
-  - component: {fileID: 830002602}
   - component: {fileID: 830002601}
   - component: {fileID: 830002600}
   m_Layer: 0
@@ -5398,10 +5197,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &830002600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5434,44 +5229,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &830002602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830002581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &830002603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830002581}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &885488412
 GameObject:
   m_ObjectHideFlags: 0
@@ -6262,8 +6019,6 @@ GameObject:
   - component: {fileID: 965629786}
   - component: {fileID: 965629784}
   - component: {fileID: 965629788}
-  - component: {fileID: 965629792}
-  - component: {fileID: 965629791}
   - component: {fileID: 965629790}
   - component: {fileID: 965629789}
   m_Layer: 0
@@ -6543,10 +6298,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &965629789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6579,44 +6330,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &965629791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965629770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &965629792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965629770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &970075248
 GameObject:
   m_ObjectHideFlags: 0
@@ -7352,8 +7065,6 @@ GameObject:
   - component: {fileID: 1128957474}
   - component: {fileID: 1128957472}
   - component: {fileID: 1128957476}
-  - component: {fileID: 1128957480}
-  - component: {fileID: 1128957479}
   - component: {fileID: 1128957478}
   - component: {fileID: 1128957477}
   m_Layer: 0
@@ -7633,10 +7344,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &1128957477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7669,44 +7376,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &1128957479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128957458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &1128957480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128957458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &1130683032
 GameObject:
   m_ObjectHideFlags: 0
@@ -10056,8 +9725,6 @@ GameObject:
   - component: {fileID: 1553269015}
   - component: {fileID: 1553269013}
   - component: {fileID: 1553269017}
-  - component: {fileID: 1553269021}
-  - component: {fileID: 1553269020}
   - component: {fileID: 1553269019}
   - component: {fileID: 1553269018}
   m_Layer: 0
@@ -10337,10 +10004,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &1553269018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10373,44 +10036,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &1553269020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1553268999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &1553269021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1553268999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &1567961459
 GameObject:
   m_ObjectHideFlags: 0
@@ -10844,8 +10469,6 @@ GameObject:
   - component: {fileID: 1746887222}
   - component: {fileID: 1746887220}
   - component: {fileID: 1746887224}
-  - component: {fileID: 1746887228}
-  - component: {fileID: 1746887227}
   - component: {fileID: 1746887226}
   - component: {fileID: 1746887225}
   m_Layer: 0
@@ -11125,10 +10748,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &1746887225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11161,44 +10780,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &1746887227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1746887206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &1746887228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1746887206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1 &1907348308
 GameObject:
   m_ObjectHideFlags: 0
@@ -12553,6 +12134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2074342026}
   - component: {fileID: 2074342027}
+  - component: {fileID: 2074342028}
   m_Layer: 0
   m_Name: Combat UI System
   m_TagString: Untagged
@@ -12592,6 +12174,34 @@ MonoBehaviour:
   labelText: {fileID: 253828507}
   enabledLabel: 'Follow: ON'
   disabledLabel: 'Follow: OFF'
+--- !u!114 &2074342028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074342025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af557fe0f6bd43b1a820a44f4cc6b28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.CombatWorldUIController
+  discoveryInterval: 0.5
+  showPlayerHealthBars: 0
+  healthBarOffset: {x: 0, y: 0.55, z: 0}
+  healthBarSize: {x: 0.62, y: 0.08}
+  healthFillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
+  healthBackgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
+  hideHealthBarWhenFull: 1
+  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  selectionFrameSize: {x: 0.72, y: 0.58}
+  selectionFrameThickness: 0.05
+  floatingTextSpawnOffset: {x: 0, y: 0.65, z: 0}
+  floatingTextMoveOffset: {x: 0, y: 0.55, z: 0}
+  floatingTextLifetime: 0.8
+  floatingTextFontSize: 3
+  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
+  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
 --- !u!1 &2080930515
 GameObject:
   m_ObjectHideFlags: 0
@@ -12737,8 +12347,6 @@ GameObject:
   - component: {fileID: 2126855130}
   - component: {fileID: 2126855128}
   - component: {fileID: 2126855132}
-  - component: {fileID: 2126855136}
-  - component: {fileID: 2126855135}
   - component: {fileID: 2126855134}
   - component: {fileID: 2126855133}
   m_Layer: 0
@@ -13018,10 +12626,6 @@ MonoBehaviour:
   fallbackDamage: 2
   fallbackAttackInterval: 1.2
   selectTargets: 0
-  selectionFrameRoot: {fileID: 0}
-  selectedFrameColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  frameSize: {x: 0.72, y: 0.58}
-  frameThickness: 0.05
 --- !u!114 &2126855133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13054,44 +12658,6 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
---- !u!114 &2126855135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2126855114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9be86f71431cf445ad579bcb1e2d09f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthChangeFeedbackPresenter
-  spawnOffset: {x: 0, y: 0.65, z: 0}
-  floatOffset: {x: 0, y: 0.55, z: 0}
-  lifetime: 0.8
-  fontSize: 3
-  damageColor: {r: 1, g: 0.22, b: 0.16, a: 1}
-  healColor: {r: 0.3, g: 1, b: 0.36, a: 1}
---- !u!114 &2126855136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2126855114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd1f52f91c095c4bb9b3d3bc28bf7ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.HealthBarPresenter
-  barRoot: {fileID: 0}
-  fillRenderer: {fileID: 0}
-  backgroundRenderer: {fileID: 0}
-  worldOffset: {x: 0, y: 0.55, z: 0}
-  size: {x: 0.62, y: 0.08}
-  fillColor: {r: 0.2, g: 0.95, b: 0.25, a: 1}
-  backgroundColor: {r: 0.14, g: 0.05, b: 0.05, a: 0.95}
-  hideWhenFull: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -33,13 +33,11 @@ namespace RPGProject.Tests
             target.SetSelected(true);
 
             Assert.IsTrue(target.IsSelected);
-            Assert.IsTrue(testObject.transform.Find("SelectionFrame").gameObject.activeSelf);
             Assert.AreEqual(Color.white, spriteRenderer.color);
 
             target.SetSelected(false);
 
             Assert.IsFalse(target.IsSelected);
-            Assert.IsFalse(testObject.transform.Find("SelectionFrame").gameObject.activeSelf);
             Assert.AreEqual(Color.white, spriteRenderer.color);
         }
 
