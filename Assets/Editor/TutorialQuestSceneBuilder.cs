@@ -49,7 +49,14 @@ public static class TutorialQuestSceneBuilder
         DamageResolver damageResolver = CreateDamageResolver("PlayerBasicDamageResolver");
         CombatAttackSettings attackSettings = CreateAttackSettings("PlayerTutorialAttack", 1.5f, 3, 1f, damageResolver);
         CombatAttackSettings ratAttackSettings = CreateAttackSettings("MistRatAttack", 1.05f, 1, 0.65f, damageResolver);
-        EnemyCombatBehaviorSettings ratBehaviorSettings = CreateEnemyBehavior("MistRatBehavior", EnemyAttackMode.Melee, EnemyMovementPolicy.ChaseTarget, 4.5f);
+        EnemyCombatBehaviorSettings ratBehaviorSettings = CreateEnemyBehavior(
+            "MistRatBehavior",
+            EnemyAttackMode.Melee,
+            EnemyMovementPolicy.ChaseTarget,
+            EnemyEngagementPolicy.AggressiveOnSight,
+            3.25f,
+            2.5f,
+            0.85f);
         LootTableDefinition ratLootTable = CreateMistRatLootTable(ratPelt);
 
         QuestDefinition talkQuest = CreateQuest(
@@ -219,6 +226,7 @@ public static class TutorialQuestSceneBuilder
             HealthComponent ratHealth = rat.AddComponent<HealthComponent>();
             CombatActor ratCombatActor = rat.AddComponent<CombatActor>();
             rat.AddComponent<HitFlashPresenter>();
+            rat.AddComponent<EnemyCombatVisualPresenter>();
             rat.AddComponent<CorpseDecayController>();
             EnemyCombatController ratCombat = rat.AddComponent<EnemyCombatController>();
             CorpseLootSource corpseLoot = rat.AddComponent<CorpseLootSource>();
@@ -477,12 +485,22 @@ public static class TutorialQuestSceneBuilder
         return settings;
     }
 
-    private static EnemyCombatBehaviorSettings CreateEnemyBehavior(string assetName, EnemyAttackMode attackMode, EnemyMovementPolicy movementPolicy, float detectionRange)
+    private static EnemyCombatBehaviorSettings CreateEnemyBehavior(
+        string assetName,
+        EnemyAttackMode attackMode,
+        EnemyMovementPolicy movementPolicy,
+        EnemyEngagementPolicy engagementPolicy,
+        float detectionRange,
+        float preferredDistance,
+        float fleeSpeedMultiplier)
     {
         EnemyCombatBehaviorSettings settings = GetOrCreateAsset<EnemyCombatBehaviorSettings>($"{AssetFolder}/{assetName}.asset");
         SetEnum(settings, "attackMode", attackMode);
         SetEnum(settings, "movementPolicy", movementPolicy);
+        SetEnum(settings, "engagementPolicy", engagementPolicy);
         SetFloat(settings, "detectionRange", detectionRange);
+        SetFloat(settings, "preferredDistance", preferredDistance);
+        SetFloat(settings, "fleeSpeedMultiplier", fleeSpeedMultiplier);
         EditorUtility.SetDirty(settings);
         return settings;
     }

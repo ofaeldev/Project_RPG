@@ -99,6 +99,17 @@ namespace RPGProject.Tests
         }
 
         [Test]
+        public void TryAttackCurrentTarget_SmallRangeDrift_StillDamages()
+        {
+            defender.transform.position = Vector3.right * 1.53f;
+            actor.SetTarget(target);
+
+            Assert.IsTrue(actor.TryAttackCurrentTarget());
+
+            Assert.AreEqual(95, defenderHealth.CurrentHealth);
+        }
+
+        [Test]
         public void TargetDeath_ClearsCurrentTarget()
         {
             actor.SetTarget(target);

@@ -1,6 +1,6 @@
 # RPG Project - Memoria de Colaboracao
 
-Last updated: 2026-05-14
+Last updated: 2026-05-16
 
 Este arquivo registra preferencias de direcao, pesquisa e colaboracao para manter a evolucao do jogo consistente entre sessoes.
 
@@ -45,5 +45,12 @@ Este arquivo registra preferencias de direcao, pesquisa e colaboracao para mante
 ## Estado atual lembrado
 
 - O jogo esta pausado no polimento de combate apos atributos de ataque/defesa, follow opcional, feedback de alvo fora de alcance com follow desligado, IA simples de inimigos, loot em corpo e a primeira leva de refatoracao arquitetural.
+- A direcao de inimigos inspirada em Tibia separa duas perguntas no Inspector: quando o inimigo entra em combate e se ele segue, segura posicao ou foge depois de engajar.
+- Os ratos da TutorialScene estao configurados como `AggressiveOnSight + ChaseTarget`, com detection range menor para evitar enxame cedo demais e `EnemyCombatVisualPresenter` para ler chase/attack no Play Mode.
+- A arquitetura desejada para inimigos e data-driven: criar inimigo novo deve ser configurar stats, ataque, loot e `EnemyCombatBehaviorSettings`; so tocar codigo quando faltar uma politica generica reaproveitavel.
+- Para evitar empate infinito em chase/flee, o player segue um pouco para dentro do alcance de ataque, `CombatActor` tem pequena tolerancia de borda, e fuga tem `fleeSpeedMultiplier` configuravel.
+- A decisao de IA inimiga foi extraida para `EnemyCombatContext`, `EnemyCombatIntent` e `EnemyCombatBehaviorResolver`; `EnemyCombatController` deve continuar fino, montando contexto e executando intencoes.
+- Politicas atuais de inimigo: `AggressiveOnSight`, `RetaliateWhenTargeted`, `RetaliateWhenDamaged`, `Passive`; movimento: `HoldPosition`, `ChaseTarget`, `FleeWhenDamaged`, `FleeAtLowHealth`, `KeepDistance`.
+- Validacao mais recente: runtime/editor/tests builds com 0 erros e Unity EditMode passando 54/54.
 - Refatoracoes recentes: visual de selecao saiu de `CombatActor`/`CombatTarget` para `CombatSelectionPresenter`; feedback, save, quest reward/log, typewriter/atalhos de dialogo, presenter/detalhes/drag icon/atalhos/view/fluxo/transfer/drop do inventario e view/formatter/input do loot ganharam classes auxiliares mais testaveis; inimigos/camera aceitam referencias injetadas com lookup antigo como fallback.
-- Proximos passos recomendados no `SYSTEMS_NOTES.md`: estados visuais de chase/attack, revisar pacing em Play Mode, dividir os UI controllers grandes em View/Presenter/Input handlers e decidir primeiro arquetipo alternativo de inimigo.
+- Proximos passos recomendados: testar feel de chase/flee em Play Mode, calibrar alcance/cadencia/velocidade com inspiracao Tibia, depois criar o primeiro arquetipo alternativo por configuracao antes de adicionar novas politicas genericas.

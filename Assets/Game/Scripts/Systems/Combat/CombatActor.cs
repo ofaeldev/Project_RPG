@@ -12,6 +12,8 @@ namespace RPGProject.Systems
     [RequireComponent(typeof(HealthComponent))]
     public sealed class CombatActor : MonoBehaviour, ICombatStatsProvider
     {
+        private const float AttackRangeTolerance = 0.05f;
+
         [Header("Base Stats")]
         [SerializeField]
         private CombatStatsDefinition baseStats;
@@ -142,7 +144,7 @@ namespace RPGProject.Systems
                 return false;
             }
 
-            float attackRange = AttackRange;
+            float attackRange = AttackRange + AttackRangeTolerance;
             Vector2 currentPosition = transform.position;
             Vector2 targetPosition = targetHealth.transform.position;
             return Vector2.SqrMagnitude(targetPosition - currentPosition) <= attackRange * attackRange;

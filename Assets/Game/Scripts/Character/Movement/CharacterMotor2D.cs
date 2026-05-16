@@ -24,10 +24,13 @@ namespace RPGProject.Character
         private Vector2 movementDirection;
         private Vector2 movementTarget;
         private float targetStopDistance;
+        private float movementSpeedMultiplier = 1f;
         private bool hasMovementTarget;
 
         public Vector2 CurrentPosition => cachedRigidbody != null ? cachedRigidbody.position : transform.position;
         public bool HasMovementTarget => hasMovementTarget;
+        public float TargetStopDistance => targetStopDistance;
+        public float MovementSpeedMultiplier => movementSpeedMultiplier;
 
         private float MoveSpeed => movementSettings != null
             ? movementSettings.MoveSpeed
@@ -50,13 +53,15 @@ namespace RPGProject.Character
         public void SetMovementDirection(Vector2 direction)
         {
             hasMovementTarget = false;
+            movementSpeedMultiplier = 1f;
             movementDirection = Vector2.ClampMagnitude(direction, 1f);
         }
 
-        public void SetMovementTarget(Vector2 target, float stopDistance = 0f)
+        public void SetMovementTarget(Vector2 target, float stopDistance = 0f, float speedMultiplier = 1f)
         {
             movementTarget = target;
             targetStopDistance = Mathf.Max(0f, stopDistance);
+            movementSpeedMultiplier = Mathf.Max(0f, speedMultiplier);
             hasMovementTarget = true;
             movementDirection = Vector2.zero;
         }
@@ -65,6 +70,7 @@ namespace RPGProject.Character
         {
             hasMovementTarget = false;
             movementDirection = Vector2.zero;
+            movementSpeedMultiplier = 1f;
 
             if (cachedRigidbody != null)
             {
@@ -87,7 +93,7 @@ namespace RPGProject.Character
                 return;
             }
 
-            cachedRigidbody.linearVelocity = movementDirection * MoveSpeed;
+            cachedRigidbody.linearVelocity = movementDirection * MoveSpeed * movementSpeedMultiplier;
         }
 
         private void ApplyTargetMovement()
@@ -96,13 +102,14 @@ namespace RPGProject.Character
             Vector2 targetDelta = movementTarget - currentPosition;
             float targetDistance = targetDelta.magnitude;
 
-            if (targetDistance <= targetStopDistance || targetDistance <= Mathf.Epsilon || MoveSpeed <= 0f)
+            float currentMoveSpeed = MoveSpeed * movementSpeedMultiplier;
+            if (targetDistance <= targetStopDistance || targetDistance <= Mathf.Epsilon || currentMoveSpeed <= 0f)
             {
                 Stop();
                 return;
             }
 
-            float stepDistance = MoveSpeed * Time.fixedDeltaTime;
+            float stepDistance = currentMoveSpeed * Time.fixedDeltaTime;
             float nextDistanceFromTarget = Mathf.Max(targetDistance - stepDistance, targetStopDistance);
 
             if (nextDistanceFromTarget >= targetDistance)

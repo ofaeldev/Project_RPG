@@ -36,6 +36,11 @@ namespace RPGProject.Systems
         [SerializeField]
         private bool followTarget = true;
 
+        [SerializeField]
+        [Min(0f)]
+        [Tooltip("When following a combat target, move slightly inside attack range so moving/fleeing targets do not hover exactly on the range edge.")]
+        private float followAttackRangeBuffer = 0.15f;
+
         [Header("Feedback")]
         [SerializeField]
         private string outOfRangeFollowDisabledMessage = "Alvo fora de alcance. Aproxime-se ou ative Follow.";
@@ -74,7 +79,7 @@ namespace RPGProject.Systems
             {
                 if (followTarget)
                 {
-                    movementController.SetMoveTarget(combatActor.CurrentTargetHealth.transform.position, combatActor.AttackRange);
+                    movementController.SetMoveTarget(combatActor.CurrentTargetHealth.transform.position, GetFollowStopDistance());
                 }
                 else
                 {
@@ -190,6 +195,13 @@ namespace RPGProject.Systems
             GameplayUIEvents.ShowWarning(
                 outOfRangeFollowDisabledMessage,
                 source: targetHealth != null ? targetHealth.gameObject : gameObject);
+        }
+
+        private float GetFollowStopDistance()
+        {
+            return combatActor != null
+                ? Mathf.Max(0f, combatActor.AttackRange - followAttackRangeBuffer)
+                : 0f;
         }
     }
 }

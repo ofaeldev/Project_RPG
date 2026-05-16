@@ -180,7 +180,7 @@ namespace RPGProject.Systems
         {
             if (health != null && healthBars.TryGetValue(health, out HealthBarView targetView))
             {
-                targetView.Refresh(hideHealthBarWhenFull);
+                targetView?.Refresh(hideHealthBarWhenFull);
             }
 
             SpawnFloatingText(health, change);
@@ -190,7 +190,7 @@ namespace RPGProject.Systems
         {
             if (health != null && healthBars.TryGetValue(health, out HealthBarView view))
             {
-                view.Refresh(hideHealthBarWhenFull);
+                view?.Refresh(hideHealthBarWhenFull);
             }
         }
 

@@ -1094,6 +1094,7 @@ GameObject:
   - component: {fileID: 225649440}
   - component: {fileID: 225649442}
   - component: {fileID: 225649441}
+  - component: {fileID: 225649443}
   m_Layer: 0
   m_Name: Rat_01
   m_TagString: Untagged
@@ -1403,6 +1404,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &225649443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225649422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &253828505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,6 +1587,7 @@ GameObject:
   - component: {fileID: 310610695}
   - component: {fileID: 310610697}
   - component: {fileID: 310610696}
+  - component: {fileID: 310610698}
   m_Layer: 0
   m_Name: Rat_06
   m_TagString: Untagged
@@ -1870,6 +1897,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &310610698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 310610677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &365393120
 GameObject:
   m_ObjectHideFlags: 0
@@ -2468,6 +2520,7 @@ GameObject:
   - component: {fileID: 533891790}
   - component: {fileID: 533891792}
   - component: {fileID: 533891791}
+  - component: {fileID: 533891793}
   m_Layer: 0
   m_Name: Rat_10
   m_TagString: Untagged
@@ -2777,6 +2830,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &533891793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533891772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &540380015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2935,6 +3013,7 @@ GameObject:
   - component: {fileID: 551658465}
   - component: {fileID: 551658467}
   - component: {fileID: 551658466}
+  - component: {fileID: 551658468}
   m_Layer: 0
   m_Name: Rat_05
   m_TagString: Untagged
@@ -3244,6 +3323,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &551658468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551658447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &587067596
 GameObject:
   m_ObjectHideFlags: 0
@@ -4920,6 +5024,7 @@ GameObject:
   - component: {fileID: 830002599}
   - component: {fileID: 830002601}
   - component: {fileID: 830002600}
+  - component: {fileID: 830002602}
   m_Layer: 0
   m_Name: Rat_02
   m_TagString: Untagged
@@ -5229,6 +5334,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &830002602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830002581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &885488412
 GameObject:
   m_ObjectHideFlags: 0
@@ -6021,6 +6151,7 @@ GameObject:
   - component: {fileID: 965629788}
   - component: {fileID: 965629790}
   - component: {fileID: 965629789}
+  - component: {fileID: 965629791}
   m_Layer: 0
   m_Name: Rat_09
   m_TagString: Untagged
@@ -6330,6 +6461,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &965629791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965629770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &970075248
 GameObject:
   m_ObjectHideFlags: 0
@@ -7067,6 +7223,7 @@ GameObject:
   - component: {fileID: 1128957476}
   - component: {fileID: 1128957478}
   - component: {fileID: 1128957477}
+  - component: {fileID: 1128957479}
   m_Layer: 0
   m_Name: Rat_08
   m_TagString: Untagged
@@ -7376,6 +7533,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &1128957479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128957458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &1130683032
 GameObject:
   m_ObjectHideFlags: 0
@@ -9727,6 +9909,7 @@ GameObject:
   - component: {fileID: 1553269017}
   - component: {fileID: 1553269019}
   - component: {fileID: 1553269018}
+  - component: {fileID: 1553269020}
   m_Layer: 0
   m_Name: Rat_04
   m_TagString: Untagged
@@ -10036,6 +10219,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &1553269020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553268999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &1567961459
 GameObject:
   m_ObjectHideFlags: 0
@@ -10471,6 +10679,7 @@ GameObject:
   - component: {fileID: 1746887224}
   - component: {fileID: 1746887226}
   - component: {fileID: 1746887225}
+  - component: {fileID: 1746887227}
   m_Layer: 0
   m_Name: Rat_03
   m_TagString: Untagged
@@ -10780,6 +10989,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &1746887227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746887206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1 &1907348308
 GameObject:
   m_ObjectHideFlags: 0
@@ -12349,6 +12583,7 @@ GameObject:
   - component: {fileID: 2126855132}
   - component: {fileID: 2126855134}
   - component: {fileID: 2126855133}
+  - component: {fileID: 2126855135}
   m_Layer: 0
   m_Name: Rat_07
   m_TagString: Untagged
@@ -12658,6 +12893,31 @@ MonoBehaviour:
   targetRenderer: {fileID: 0}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashSeconds: 0.08
+--- !u!114 &2126855135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126855114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4b0cb2241ffdc408125d1420a1c6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Systems.EnemyCombatVisualPresenter
+  controller: {fileID: 0}
+  targetRenderer: {fileID: 0}
+  animator: {fileID: 0}
+  idleColor: {r: 1, g: 1, b: 1, a: 1}
+  alertColor: {r: 1, g: 0.92, b: 0.58, a: 1}
+  chasingColor: {r: 1, g: 0.72, b: 0.42, a: 1}
+  attackingColor: {r: 1, g: 0.38, b: 0.32, a: 1}
+  fleeingColor: {r: 0.62, g: 0.78, b: 1, a: 1}
+  deadColor: {r: 0.38, g: 0.38, b: 0.38, a: 1}
+  stateParameter: CombatState
+  chasingParameter: IsChasing
+  attackingParameter: IsAttacking
+  fleeingParameter: IsFleeing
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

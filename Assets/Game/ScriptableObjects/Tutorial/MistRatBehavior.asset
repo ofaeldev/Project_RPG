@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: MistRatBehavior
   m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Gameplay.EnemyCombatBehaviorSettings
   attackMode: 0
-  movementPolicy: 1
-  detectionRange: 4.5
+  movementPolicy: 3
+  engagementPolicy: 1
+  detectionRange: 3.25
+  preferredDistance: 2.5
   lowHealthThreshold: 0.25
   fleeDistance: 3
+  fleeSpeedMultiplier: 0.85

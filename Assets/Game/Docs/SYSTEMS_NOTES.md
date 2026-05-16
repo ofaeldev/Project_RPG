@@ -1,6 +1,6 @@
 # RPG Project Systems Notes
 
-Last updated: 2026-05-14
+Last updated: 2026-05-16
 
 This file tracks implemented systems and future ownership decisions so we avoid duplicated code and keep architecture consistent.
 
@@ -259,8 +259,13 @@ Implemented:
 - `CorpseLootSource` owns corpse loot contents and one-time loot state.
 - `EnemyCombatController` gives enemies a simple combat loop: acquire player, optionally chase, attack in range, or flee if behavior settings request it.
 - `EnemyCombatBehaviorSettings` stores enemy combat style data so future melee, ranged, coward, caster, stealth, or other archetypes can branch by data instead of hard-coded enemy classes.
+- `EnemyCombatBehaviorSettings` separates engagement from movement: enemies can acquire on sight, retaliate when targeted, retaliate only when damaged, or remain passive; movement can independently hold position, chase, flee when damaged, flee at low health, or keep distance.
+- `EnemyCombatBehaviorResolver` is the pure decision layer for enemy AI. `EnemyCombatController` should build context and execute returned intents, not grow new per-enemy branches.
 - Tutorial scene now gives the Player 100 HP and each mist rat 20 HP as starter combat values.
 - Tutorial scene gives the Player starter combat stats, 1.5 attack range, and 1 attack per second.
+- Tutorial mist rats use `AggressiveOnSight + ChaseTarget` with a shorter 3.25 detection range, weak melee damage, and `EnemyCombatVisualPresenter` so chase/attack state is readable while testing.
+- Combat follow uses a small approach buffer and attack range tolerance so moving/fleeing targets do not hover exactly on the attack boundary without receiving damage.
+- Fleeing enemies use a configurable flee speed multiplier; default values below 1 keep low-health fleeing enemies catchable unless a creature is deliberately configured as fast.
 
 Important:
 - `HealthComponent` owns only hit points and death state.
@@ -270,6 +275,9 @@ Important:
 - Do not duplicate attack cooldown/range/damage application in player or enemy controllers. Route attack execution through `CombatActor`.
 - Do not put attack cadence or damage application in `EnemyInteractionTarget`; it should route Attack actions into `AutoAttackController`.
 - Do not make enemy-specific AI scripts for every creature type until behavior data cannot express the difference. Prefer `EnemyCombatBehaviorSettings` first.
+- Keep Tibia-like enemy intent readable in data: engagement policy answers "when does it fight?", movement policy answers "does it follow, hold, or flee?".
+- New enemy archetypes should be added by configuring stats, attack settings, loot, and behavior assets. Avoid touching `EnemyCombatController` unless a genuinely new generic policy is needed.
+- Do not solve chase/flee edge cases by putting damage logic in movement controllers. Keep damage in `CombatActor`; tune approach distance, range tolerance, and behavior movement speeds.
 - `EnemyInteractionTarget` may react to death for enemy-specific outcomes such as quest kill reporting or deactivation.
 - Future combat systems should call `ApplyDamage()` / `Heal()` and react to events instead of writing health fields directly.
 - Do not calculate damage inside visual feedback presenters; they should only display already-resolved `HealthChange` data.
@@ -378,7 +386,7 @@ Tutorial scene:
 ## Current Stop Point
 
 Paused on:
-- Combat polish after adding attack/defense attributes, optional target follow, and simple enemy AI.
+- Combat polish after making enemy AI data-driven, fixing chase/flee edge cases, and adding configurable enemy engagement/movement policies.
 
 Implemented in the latest pass:
 - Added pure `PlayerInputState` and event-driven handoff from `PlayerInputReader` to movement/action controllers.
@@ -425,17 +433,24 @@ Implemented in the latest pass:
 - `EnemyCombatController` gives enemies a first simple loop: find player, optionally chase, attack in range, or flee if configured.
 - Tutorial scene and `TutorialQuestSceneBuilder` were updated to connect player stats, rat stats, rat movement, rat attack, rat behavior, enemy AI, and follow UI.
 - Added `DamageResolverTests` covering attack/defense damage calculation and non-negative damage.
+- Added explicit enemy engagement policies inspired by Tibia creature behavior: aggressive on sight, retaliate when targeted/damaged, and passive.
+- Added enemy combat states plus `EnemyCombatVisualPresenter` for tint/Animator-driven idle, alert, chasing, attacking, fleeing, and dead presentation.
+- Added an editor inspector summary for `EnemyCombatBehaviorSettings` so designers can read enemy intent as "when does it fight?" plus "what does it do after engaging?".
+- Extracted enemy AI decisions into `EnemyCombatContext`, `EnemyCombatIntent`, and `EnemyCombatBehaviorResolver` so enemy behavior stays data-driven and testable.
+- Added `FleeWhenDamaged`, `RetaliateWhenDamaged`, `KeepDistance`, `preferredDistance`, and `fleeSpeedMultiplier` so new enemy archetypes can be configured without new scripts.
+- Added `EnemyCombatVisualPresenter` and connected it to tutorial mist rats for state readability.
+- Fixed player chase against fleeing targets by using an approach buffer, attack range tolerance, and configurable flee speed.
 
 Validated:
 - `RPGProject.Runtime.csproj` builds with 0 errors.
 - `Assembly-CSharp-Editor.csproj` builds with 0 errors.
 - `RPGProject.EditModeTests.csproj` builds with 0 errors.
-- Unity EditMode tests passed: 29/29.
-- Short Play Mode smoke test produced no console errors or warnings.
+- Unity EditMode tests passed: 54/54.
+- Console check after tests produced no new gameplay errors; only expected Unity Test Framework warnings and the intentional full-inventory reward warning.
 
 Recommended next work:
 1. Consider moving corpse loot claiming out of `CorpseLootSource` into a non-MonoBehaviour loot model/service if inventory transfer rules become more complex.
-2. Add visual/animation state for enemy chasing and attacking, preferably by listening to `CombatActor` and health events.
-3. Review enemy detection and attack pacing in Play Mode for feel.
-4. Decide whether ranged enemies should attack without moving as the first alternate enemy archetype.
-5. Later, expand `EnemyCombatBehaviorSettings` with escape, spell, invisibility, and ranged/caster-specific rules instead of creating separate one-off enemy scripts.
+2. Review enemy detection, chase, flee, attack range, and attack pacing in Play Mode for feel.
+3. Create the first alternate enemy archetype using only configuration, likely a hold-position ranged/caster or a timid fleeing creature.
+4. Add real animation clips/Animator states for chase/attack/death once the gameplay feel is stable.
+5. Later, expand `EnemyCombatBehaviorSettings` with escape, spell, invisibility, and ranged/caster-specific rules only when current generic policies cannot express the design.
