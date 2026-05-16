@@ -17,6 +17,10 @@ public static class TutorialQuestSceneBuilder
 {
     private const string ScenePath = "Assets/Game/Scenes/TutorialScene.unity";
     private const string AssetFolder = "Assets/Game/ScriptableObjects/Tutorial";
+    private const string CreatureFolder = "Assets/Game/ScriptableObjects/Creatures";
+    private const string RatCreatureFolder = CreatureFolder + "/Rats";
+    private const string FieldRatFolder = RatCreatureFolder + "/FieldRat";
+    private const string MistfangRatFolder = RatCreatureFolder + "/MistfangRat";
     private const string ArtFolder = "Assets/Game/Art/Tutorial";
 
     [MenuItem("RPG Project/Build Tutorial Quest Scene")]
@@ -43,21 +47,61 @@ public static class TutorialQuestSceneBuilder
             true,
             99);
         CharacterMovementSettings movementSettings = CreateMovementSettings("PlayerTutorialMovement", 4.5f);
-        CharacterMovementSettings ratMovementSettings = CreateMovementSettings("MistRatMovement", 2.2f);
-        CombatStatsDefinition playerStats = CreateCombatStats("PlayerTutorialStats", 4, 1);
-        CombatStatsDefinition ratStats = CreateCombatStats("MistRatStats", 2, 1);
+        CharacterMovementSettings fieldRatMovementSettings = CreateMovementSettings(FieldRatFolder, "FieldRatMovement", 1.8f);
+        CharacterMovementSettings mistfangRatMovementSettings = CreateMovementSettings(MistfangRatFolder, "MistfangRatMovement", 2.45f);
+        CombatStatsDefinition playerStats = CreateCombatStats(AssetFolder, "PlayerTutorialStats", 4, 1);
+        CombatStatsDefinition fieldRatStats = CreateCombatStats(FieldRatFolder, "FieldRatStats", 1, 0);
+        CombatStatsDefinition mistfangRatStats = CreateCombatStats(MistfangRatFolder, "MistfangRatStats", 3, 1);
         DamageResolver damageResolver = CreateDamageResolver("PlayerBasicDamageResolver");
         CombatAttackSettings attackSettings = CreateAttackSettings("PlayerTutorialAttack", 1.5f, 3, 1f, damageResolver);
-        CombatAttackSettings ratAttackSettings = CreateAttackSettings("MistRatAttack", 1.05f, 1, 0.65f, damageResolver);
-        EnemyCombatBehaviorSettings ratBehaviorSettings = CreateEnemyBehavior(
-            "MistRatBehavior",
+        CombatAttackSettings fieldRatAttackSettings = CreateAttackSettings(FieldRatFolder, "FieldRatAttack", 0.95f, 1, 0.55f, damageResolver);
+        CombatAttackSettings mistfangRatAttackSettings = CreateAttackSettings(MistfangRatFolder, "MistfangRatAttack", 1.1f, 1, 0.45f, damageResolver);
+        EnemyCombatBehaviorSettings fieldRatBehaviorSettings = CreateEnemyBehavior(
+            FieldRatFolder,
+            "FieldRatBehavior",
             EnemyAttackMode.Melee,
             EnemyMovementPolicy.ChaseTarget,
-            EnemyEngagementPolicy.AggressiveOnSight,
-            3.25f,
+            EnemyEngagementPolicy.RetaliateWhenDamaged,
+            0f,
             2.5f,
-            0.85f);
-        LootTableDefinition ratLootTable = CreateMistRatLootTable(ratPelt);
+            1f,
+            0.25f);
+        EnemyCombatBehaviorSettings mistfangRatBehaviorSettings = CreateEnemyBehavior(
+            MistfangRatFolder,
+            "MistfangRatBehavior",
+            EnemyAttackMode.Melee,
+            EnemyMovementPolicy.FleeAtLowHealth,
+            EnemyEngagementPolicy.AggressiveOnSight,
+            3.35f,
+            2.5f,
+            0.9f,
+            0.25f);
+        LootTableDefinition fieldRatLootTable = CreateRatLootTable(FieldRatFolder, "FieldRatLootTable", ratPelt, 0.45f, 1, 1);
+        LootTableDefinition mistfangRatLootTable = CreateRatLootTable(MistfangRatFolder, "MistfangRatLootTable", ratPelt, 0.8f, 1, 2);
+        CreatureDefinition fieldRatDefinition = CreateCreatureDefinition(
+            FieldRatFolder,
+            "FieldRat",
+            "field_rat",
+            "Rato do Campo",
+            "Um rato comum dos arredores de Vale de Lumen. Ele evita lutar, mas morde quando e ferido.",
+            12,
+            fieldRatStats,
+            fieldRatAttackSettings,
+            fieldRatBehaviorSettings,
+            2,
+            fieldRatLootTable);
+        CreatureDefinition mistfangRatDefinition = CreateCreatureDefinition(
+            MistfangRatFolder,
+            "MistfangRat",
+            "mistfang_rat",
+            "Rato Presa-da-Bruma",
+            "Uma evolucao agressiva dos ratos locais, deformada pela nevoa. Persegue presas, mas recua quando esta quase morrendo.",
+            24,
+            mistfangRatStats,
+            mistfangRatAttackSettings,
+            mistfangRatBehaviorSettings,
+            5,
+            mistfangRatLootTable);
 
         QuestDefinition talkQuest = CreateQuest(
             "tutorial_find_mira",
@@ -72,7 +116,7 @@ public static class TutorialQuestSceneBuilder
             "Ratos na nevoa",
             "Mira quer confirmar se a nevoa esta enlouquecendo os animais. Derrote 10 ratos antes que cheguem aos celeiros.",
             "Chave da Capela Antiga",
-            new[] { CreateObjective("kill_mist_rats", QuestObjectiveType.Kill, "mist_rat", "Derrote ratos da nevoa", 10) },
+            new[] { CreateObjective("kill_mist_rats", QuestObjectiveType.Kill, "mist_rat", "Derrote ratos nos campos", 10) },
             new[] { CreateStack(tutorialKey, 1) });
 
         DialogueDefinition introDialogue = CreateDialogue(
@@ -126,7 +170,7 @@ public static class TutorialQuestSceneBuilder
 
         CreateCamera();
         GameObject managers = CreateManagers();
-        BuildWorld(squareSprite, movementSettings, ratMovementSettings, playerStats, ratStats, attackSettings, ratAttackSettings, ratBehaviorSettings, ratLootTable, introDialogue, talkQuest, guideOfferDialogue, ratQuest, guideActiveDialogue, guideCompletedDialogue, guideRewardClaimedDialogue);
+        BuildWorld(squareSprite, movementSettings, fieldRatMovementSettings, mistfangRatMovementSettings, playerStats, fieldRatStats, mistfangRatStats, attackSettings, fieldRatAttackSettings, mistfangRatAttackSettings, fieldRatBehaviorSettings, mistfangRatBehaviorSettings, fieldRatLootTable, mistfangRatLootTable, fieldRatDefinition, mistfangRatDefinition, introDialogue, talkQuest, guideOfferDialogue, ratQuest, guideActiveDialogue, guideCompletedDialogue, guideRewardClaimedDialogue);
         BuildUi(managers);
 
         EditorSceneManager.MarkSceneDirty(scene);
@@ -142,6 +186,10 @@ public static class TutorialQuestSceneBuilder
         EnsureFolder("Assets/Game/Scenes");
         EnsureFolder("Assets/Game/ScriptableObjects");
         EnsureFolder(AssetFolder);
+        EnsureFolder(CreatureFolder);
+        EnsureFolder(RatCreatureFolder);
+        EnsureFolder(FieldRatFolder);
+        EnsureFolder(MistfangRatFolder);
         EnsureFolder("Assets/Game/Art");
         EnsureFolder(ArtFolder);
     }
@@ -149,13 +197,20 @@ public static class TutorialQuestSceneBuilder
     private static void BuildWorld(
         Sprite squareSprite,
         CharacterMovementSettings movementSettings,
-        CharacterMovementSettings ratMovementSettings,
+        CharacterMovementSettings fieldRatMovementSettings,
+        CharacterMovementSettings mistfangRatMovementSettings,
         CombatStatsDefinition playerStats,
-        CombatStatsDefinition ratStats,
+        CombatStatsDefinition fieldRatStats,
+        CombatStatsDefinition mistfangRatStats,
         CombatAttackSettings attackSettings,
-        CombatAttackSettings ratAttackSettings,
-        EnemyCombatBehaviorSettings ratBehaviorSettings,
-        LootTableDefinition ratLootTable,
+        CombatAttackSettings fieldRatAttackSettings,
+        CombatAttackSettings mistfangRatAttackSettings,
+        EnemyCombatBehaviorSettings fieldRatBehaviorSettings,
+        EnemyCombatBehaviorSettings mistfangRatBehaviorSettings,
+        LootTableDefinition fieldRatLootTable,
+        LootTableDefinition mistfangRatLootTable,
+        CreatureDefinition fieldRatDefinition,
+        CreatureDefinition mistfangRatDefinition,
         DialogueDefinition introDialogue,
         QuestDefinition talkQuest,
         DialogueDefinition guideOfferDialogue,
@@ -217,7 +272,17 @@ public static class TutorialQuestSceneBuilder
         {
             float angle = i / 10f * Mathf.PI * 2f;
             Vector2 position = new(Mathf.Cos(angle) * 3.4f, Mathf.Sin(angle) * 2.0f - 1.9f);
-            GameObject rat = CreateActor($"Rat_{i + 1:00}", position, squareSprite, new Color(0.60f, 0.50f, 0.43f, 1f), new Vector2(0.45f, 0.32f));
+            bool isMistfang = i < 3;
+            CreatureDefinition creatureDefinition = isMistfang ? mistfangRatDefinition : fieldRatDefinition;
+            CharacterMovementSettings ratMovementSettings = isMistfang ? mistfangRatMovementSettings : fieldRatMovementSettings;
+            CombatStatsDefinition ratStats = isMistfang ? mistfangRatStats : fieldRatStats;
+            CombatAttackSettings ratAttackSettings = isMistfang ? mistfangRatAttackSettings : fieldRatAttackSettings;
+            EnemyCombatBehaviorSettings ratBehaviorSettings = isMistfang ? mistfangRatBehaviorSettings : fieldRatBehaviorSettings;
+            LootTableDefinition ratLootTable = isMistfang ? mistfangRatLootTable : fieldRatLootTable;
+            string ratDisplayName = isMistfang ? "Rato Presa-da-Bruma" : "Rato do Campo";
+            Color ratColor = isMistfang ? new Color(0.42f, 0.48f, 0.56f, 1f) : new Color(0.60f, 0.50f, 0.43f, 1f);
+
+            GameObject rat = CreateActor($"Rat_{i + 1:00}", position, squareSprite, ratColor, new Vector2(0.45f, 0.32f));
             Rigidbody2D ratBody = rat.AddComponent<Rigidbody2D>();
             ratBody.gravityScale = 0f;
             ratBody.freezeRotation = true;
@@ -226,27 +291,38 @@ public static class TutorialQuestSceneBuilder
             HealthComponent ratHealth = rat.AddComponent<HealthComponent>();
             CombatActor ratCombatActor = rat.AddComponent<CombatActor>();
             rat.AddComponent<HitFlashPresenter>();
+            EnemyCombatController ratCombat = (EnemyCombatController)rat.AddComponent(typeof(EnemyCombatController));
             rat.AddComponent<EnemyCombatVisualPresenter>();
             rat.AddComponent<CorpseDecayController>();
-            EnemyCombatController ratCombat = rat.AddComponent<EnemyCombatController>();
             CorpseLootSource corpseLoot = rat.AddComponent<CorpseLootSource>();
+            rat.AddComponent<CorpseLootIndicatorPresenter>();
             SetObject(ratMotor, "movementSettings", ratMovementSettings);
             SetObject(ratCombatActor, "baseStats", ratStats);
             SetObject(ratCombatActor, "attackSettings", ratAttackSettings);
             SetBool(ratCombatActor, "selectTargets", false);
+            if (ratCombat == null)
+            {
+                throw new InvalidOperationException($"Could not add EnemyCombatController to {rat.name}.");
+            }
+
+            if (ratBehaviorSettings == null)
+            {
+                throw new InvalidOperationException($"Missing behavior settings for {rat.name}.");
+            }
+
             SetObject(ratCombat, "behaviorSettings", ratBehaviorSettings);
             SetObject(ratCombat, "combatActor", ratCombatActor);
-            SetInt(ratHealth, "maximumHealth", 20);
-            SetInt(ratHealth, "currentHealth", 20);
-            SetString(corpseLoot, "displayName", $"Corpo de Rato da Nevoa {i + 1}");
+            SetInt(ratHealth, "maximumHealth", creatureDefinition.MaximumHealth);
+            SetInt(ratHealth, "currentHealth", creatureDefinition.MaximumHealth);
+            SetString(corpseLoot, "displayName", $"Corpo de {ratDisplayName} {i + 1}");
             SetObject(corpseLoot, "lootTable", ratLootTable);
             QuestKillTarget killTarget = rat.AddComponent<QuestKillTarget>();
             SetString(killTarget, "targetId", "mist_rat");
             EnemyInteractionTarget enemy = rat.AddComponent<EnemyInteractionTarget>();
-            SetString(enemy, "displayName", $"Rato da Nevoa {i + 1}");
+            SetString(enemy, "displayName", $"{ratDisplayName} {i + 1}");
             SetObject(enemy, "questKillTarget", killTarget);
             SetBool(enemy, "deactivateOnDefeat", false);
-            AddWorldLabel(rat.transform, $"Rato {i + 1}", Color.white, new Vector3(0f, 0.42f, 0f), 2.4f);
+            AddWorldLabel(rat.transform, isMistfang ? $"Presa-da-Bruma {i - 6}" : $"Rato {i + 1}", Color.white, new Vector3(0f, 0.42f, 0f), 2.4f);
         }
     }
 
@@ -452,7 +528,12 @@ public static class TutorialQuestSceneBuilder
 
     private static CharacterMovementSettings CreateMovementSettings(string assetName, float speed)
     {
-        CharacterMovementSettings settings = GetOrCreateAsset<CharacterMovementSettings>($"{AssetFolder}/{assetName}.asset");
+        return CreateMovementSettings(AssetFolder, assetName, speed);
+    }
+
+    private static CharacterMovementSettings CreateMovementSettings(string folder, string assetName, float speed)
+    {
+        CharacterMovementSettings settings = GetOrCreateAsset<CharacterMovementSettings>($"{folder}/{assetName}.asset");
         SetFloat(settings, "moveSpeed", speed);
         EditorUtility.SetDirty(settings);
         return settings;
@@ -467,7 +548,12 @@ public static class TutorialQuestSceneBuilder
 
     private static CombatStatsDefinition CreateCombatStats(string assetName, int attack, int defense)
     {
-        CombatStatsDefinition stats = GetOrCreateAsset<CombatStatsDefinition>($"{AssetFolder}/{assetName}.asset");
+        return CreateCombatStats(AssetFolder, assetName, attack, defense);
+    }
+
+    private static CombatStatsDefinition CreateCombatStats(string folder, string assetName, int attack, int defense)
+    {
+        CombatStatsDefinition stats = GetOrCreateAsset<CombatStatsDefinition>($"{folder}/{assetName}.asset");
         SetInt(stats, "attack", attack);
         SetInt(stats, "defense", defense);
         EditorUtility.SetDirty(stats);
@@ -476,7 +562,12 @@ public static class TutorialQuestSceneBuilder
 
     private static CombatAttackSettings CreateAttackSettings(string assetName, float attackRange, int damage, float attacksPerSecond, DamageResolver damageResolver)
     {
-        CombatAttackSettings settings = GetOrCreateAsset<CombatAttackSettings>($"{AssetFolder}/{assetName}.asset");
+        return CreateAttackSettings(AssetFolder, assetName, attackRange, damage, attacksPerSecond, damageResolver);
+    }
+
+    private static CombatAttackSettings CreateAttackSettings(string folder, string assetName, float attackRange, int damage, float attacksPerSecond, DamageResolver damageResolver)
+    {
+        CombatAttackSettings settings = GetOrCreateAsset<CombatAttackSettings>($"{folder}/{assetName}.asset");
         SetFloat(settings, "attackRange", attackRange);
         SetInt(settings, "damage", damage);
         SetFloat(settings, "attacksPerSecond", attacksPerSecond);
@@ -486,40 +577,70 @@ public static class TutorialQuestSceneBuilder
     }
 
     private static EnemyCombatBehaviorSettings CreateEnemyBehavior(
+        string folder,
         string assetName,
         EnemyAttackMode attackMode,
         EnemyMovementPolicy movementPolicy,
         EnemyEngagementPolicy engagementPolicy,
         float detectionRange,
         float preferredDistance,
-        float fleeSpeedMultiplier)
+        float fleeSpeedMultiplier,
+        float lowHealthThreshold)
     {
-        EnemyCombatBehaviorSettings settings = GetOrCreateAsset<EnemyCombatBehaviorSettings>($"{AssetFolder}/{assetName}.asset");
+        EnemyCombatBehaviorSettings settings = GetOrCreateAsset<EnemyCombatBehaviorSettings>($"{folder}/{assetName}.asset");
         SetEnum(settings, "attackMode", attackMode);
         SetEnum(settings, "movementPolicy", movementPolicy);
         SetEnum(settings, "engagementPolicy", engagementPolicy);
         SetFloat(settings, "detectionRange", detectionRange);
         SetFloat(settings, "preferredDistance", preferredDistance);
         SetFloat(settings, "fleeSpeedMultiplier", fleeSpeedMultiplier);
+        SetFloat(settings, "lowHealthThreshold", lowHealthThreshold);
         EditorUtility.SetDirty(settings);
         return settings;
     }
 
-    private static LootTableDefinition CreateMistRatLootTable(ItemDefinition ratPelt)
+    private static LootTableDefinition CreateRatLootTable(string folder, string assetName, ItemDefinition ratPelt, float dropChance, int minAmount, int maxAmount)
     {
-        LootTableDefinition table = GetOrCreateAsset<LootTableDefinition>($"{AssetFolder}/MistRatLootTable.asset");
+        LootTableDefinition table = GetOrCreateAsset<LootTableDefinition>($"{folder}/{assetName}.asset");
         SetSerialized(table, "entries", property =>
         {
             property.arraySize = 1;
             SerializedProperty entry = property.GetArrayElementAtIndex(0);
             entry.FindPropertyRelative("item").objectReferenceValue = ratPelt;
             entry.FindPropertyRelative("rarity").enumValueIndex = Convert.ToInt32(LootRarity.Common);
-            entry.FindPropertyRelative("dropChance").floatValue = 0.65f;
-            entry.FindPropertyRelative("minAmount").intValue = 1;
-            entry.FindPropertyRelative("maxAmount").intValue = 2;
+            entry.FindPropertyRelative("dropChance").floatValue = dropChance;
+            entry.FindPropertyRelative("minAmount").intValue = minAmount;
+            entry.FindPropertyRelative("maxAmount").intValue = maxAmount;
         });
         EditorUtility.SetDirty(table);
         return table;
+    }
+
+    private static CreatureDefinition CreateCreatureDefinition(
+        string folder,
+        string assetName,
+        string creatureId,
+        string displayName,
+        string description,
+        int maximumHealth,
+        CombatStatsDefinition stats,
+        CombatAttackSettings attackSettings,
+        EnemyCombatBehaviorSettings behaviorSettings,
+        int experienceReward,
+        LootTableDefinition lootTable)
+    {
+        CreatureDefinition creature = GetOrCreateAsset<CreatureDefinition>($"{folder}/{assetName}.asset");
+        SetString(creature, "creatureId", creatureId);
+        SetString(creature, "displayName", displayName);
+        SetString(creature, "description", description);
+        SetInt(creature, "maximumHealth", maximumHealth);
+        SetObject(creature, "combatStats", stats);
+        SetObject(creature, "attackSettings", attackSettings);
+        SetObject(creature, "behaviorSettings", behaviorSettings);
+        SetInt(creature, "experienceReward", experienceReward);
+        SetObject(creature, "lootTable", lootTable);
+        EditorUtility.SetDirty(creature);
+        return creature;
     }
 
     private static QuestDefinition CreateQuest(string questId, string title, string description, string rewardDescription, QuestObjectiveDefinition[] objectives, ItemStackDefinition[] rewardItems)

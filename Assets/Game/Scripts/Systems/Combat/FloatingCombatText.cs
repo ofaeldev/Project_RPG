@@ -1,4 +1,5 @@
 using TMPro;
+using System;
 using UnityEngine;
 
 namespace RPGProject.Systems
@@ -13,6 +14,9 @@ namespace RPGProject.Systems
         private float lifetime = 0.8f;
         private float elapsed;
         private Color startColor = Color.white;
+        private bool isPlaying;
+
+        public event Action<FloatingCombatText> Completed;
 
         private void Awake()
         {
@@ -21,6 +25,11 @@ namespace RPGProject.Systems
 
         private void Update()
         {
+            if (!isPlaying)
+            {
+                return;
+            }
+
             elapsed += Time.deltaTime;
             float progress = lifetime > 0f ? Mathf.Clamp01(elapsed / lifetime) : 1f;
             float easedProgress = 1f - (1f - progress) * (1f - progress);
@@ -38,7 +47,7 @@ namespace RPGProject.Systems
 
             if (progress >= 1f)
             {
-                Destroy(gameObject);
+                Complete();
             }
         }
 
@@ -51,6 +60,7 @@ namespace RPGProject.Systems
 
             lifetime = Mathf.Max(0.05f, duration);
             elapsed = 0f;
+            isPlaying = true;
             startColor = color;
             startPosition = worldPosition;
             endPosition = worldPosition + worldOffset;
@@ -59,6 +69,18 @@ namespace RPGProject.Systems
             text.text = value;
             text.color = color;
             FaceCamera();
+        }
+
+        private void Complete()
+        {
+            isPlaying = false;
+            if (Completed != null)
+            {
+                Completed.Invoke(this);
+                return;
+            }
+
+            Destroy(gameObject);
         }
 
         private void FaceCamera()

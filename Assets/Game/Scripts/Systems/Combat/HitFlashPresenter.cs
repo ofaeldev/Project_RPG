@@ -19,14 +19,13 @@ namespace RPGProject.Systems
 
         private HealthComponent health;
         private Color originalColor;
-        private bool hasOriginalColor;
+        private bool isFlashing;
         private float flashUntilTime;
 
         private void Awake()
         {
             health = GetComponent<HealthComponent>();
             ResolveRenderer();
-            CacheOriginalColor();
         }
 
         private void OnEnable()
@@ -65,14 +64,13 @@ namespace RPGProject.Systems
                 return;
             }
 
-            ResolveRenderer();
-            CacheOriginalColor();
-
             if (targetRenderer == null)
             {
                 return;
             }
 
+            originalColor = targetRenderer.color;
+            isFlashing = true;
             targetRenderer.color = flashColor;
             flashUntilTime = Time.time + flashSeconds;
         }
@@ -85,23 +83,14 @@ namespace RPGProject.Systems
             }
         }
 
-        private void CacheOriginalColor()
-        {
-            if (targetRenderer == null || hasOriginalColor)
-            {
-                return;
-            }
-
-            originalColor = targetRenderer.color;
-            hasOriginalColor = true;
-        }
-
         private void RestoreColor()
         {
-            if (targetRenderer != null && hasOriginalColor)
+            if (targetRenderer != null && isFlashing)
             {
                 targetRenderer.color = originalColor;
             }
+
+            isFlashing = false;
         }
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using RPGProject.Gameplay;
-using TMPro;
 using UnityEngine;
 
 namespace RPGProject.Systems
@@ -72,10 +71,17 @@ namespace RPGProject.Systems
         private readonly List<HealthComponent> healthRemovalBuffer = new();
         private readonly List<CombatActor> actorRemovalBuffer = new();
         private readonly List<CombatTarget> targetRemovalBuffer = new();
+        private CombatFloatingTextFactory floatingTextFactory;
         private float nextDiscoveryTime;
+
+        private void Awake()
+        {
+            CreateFactories();
+        }
 
         private void OnEnable()
         {
+            CreateFactories();
             DiscoverCombatObjects();
         }
 
@@ -84,6 +90,7 @@ namespace RPGProject.Systems
             ClearHealthBars();
             ClearActorSelectionFrames();
             ClearLegacySelectionFrames();
+            floatingTextFactory?.Clear();
         }
 
         private void Update()
@@ -215,19 +222,8 @@ namespace RPGProject.Systems
 
         private void CreateFloatingText(Vector3 position, string value, Color color)
         {
-            GameObject textObject = new("FloatingCombatText", typeof(TextMeshPro), typeof(FloatingCombatText));
-            textObject.transform.SetParent(transform, true);
-            textObject.transform.position = position;
-
-            TextMeshPro text = textObject.GetComponent<TextMeshPro>();
-            text.alignment = TextAlignmentOptions.Center;
-            text.fontSize = floatingTextFontSize;
-            text.fontStyle = FontStyles.Bold;
-            text.sortingOrder = 80;
-            text.textWrappingMode = TextWrappingModes.NoWrap;
-
-            FloatingCombatText floatingText = textObject.GetComponent<FloatingCombatText>();
-            floatingText.Initialize(value, color, position, floatingTextMoveOffset, floatingTextLifetime);
+            CreateFactories();
+            floatingTextFactory.Spawn(value, color, position, floatingTextMoveOffset, floatingTextLifetime);
         }
 
         private void OnActorSelected(CombatActor actor)
@@ -536,6 +532,11 @@ namespace RPGProject.Systems
             renderer.color = color;
             renderer.sortingOrder = sortingOrder;
             return renderer;
+        }
+
+        private void CreateFactories()
+        {
+            floatingTextFactory ??= new CombatFloatingTextFactory(transform, floatingTextFontSize);
         }
     }
 }

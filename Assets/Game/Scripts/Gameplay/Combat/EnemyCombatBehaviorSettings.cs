@@ -83,7 +83,10 @@ namespace RPGProject.Gameplay
         public bool ShouldRetaliateWhenTargeted => engagementPolicy == EnemyEngagementPolicy.RetaliateWhenTargeted;
         public bool ShouldRetaliateWhenDamaged => engagementPolicy == EnemyEngagementPolicy.RetaliateWhenDamaged;
         public bool ShouldRetaliate => ShouldRetaliateWhenTargeted || ShouldRetaliateWhenDamaged;
-        public bool ShouldChase => movementPolicy == EnemyMovementPolicy.ChaseTarget;
+        public bool ShouldChase =>
+            movementPolicy == EnemyMovementPolicy.ChaseTarget ||
+            movementPolicy == EnemyMovementPolicy.FleeWhenDamaged ||
+            movementPolicy == EnemyMovementPolicy.FleeAtLowHealth;
         public bool ShouldFleeWhenDamaged => movementPolicy == EnemyMovementPolicy.FleeWhenDamaged;
         public bool ShouldKeepDistance => movementPolicy == EnemyMovementPolicy.KeepDistance;
         public bool ShouldFlee(float normalizedHealth) =>

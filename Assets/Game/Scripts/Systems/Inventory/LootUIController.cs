@@ -36,6 +36,7 @@ namespace RPGProject.Systems
 
         private readonly LootPanelView view = new();
         private readonly LootContentFormatter contentFormatter = new();
+        private readonly LootPanelActionFlow actionFlow = new();
         private ILootSource currentLootSource;
 
         private void Awake()
@@ -106,15 +107,7 @@ namespace RPGProject.Systems
                 return;
             }
 
-            if (LootService.Instance != null)
-            {
-                LootService.Instance.ClaimAll(currentLootSource, currentLootSource as Object);
-            }
-            else
-            {
-                currentLootSource.ClaimAllLoot();
-            }
-
+            actionFlow.TryTakeAll(currentLootSource, LootService.Instance);
             Close();
         }
 

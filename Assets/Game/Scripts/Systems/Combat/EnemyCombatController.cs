@@ -5,16 +5,6 @@ using UnityEngine;
 
 namespace RPGProject.Systems
 {
-    public enum EnemyCombatState
-    {
-        Idle,
-        Alert,
-        Chasing,
-        Attacking,
-        Fleeing,
-        Dead
-    }
-
     [DisallowMultipleComponent]
     [RequireComponent(typeof(HealthComponent))]
     [RequireComponent(typeof(CombatActor))]
@@ -29,6 +19,22 @@ namespace RPGProject.Systems
 
         [SerializeField]
         private HealthComponent explicitTarget;
+
+        [Header("Leash")]
+        [SerializeField]
+        private bool returnHomeWhenTargetLost = true;
+
+        [SerializeField]
+        [Min(0f)]
+        private float leashDistanceFromHome = 6f;
+
+        [SerializeField]
+        [Min(0f)]
+        private float returnHomeStopDistance = 0.08f;
+
+        [SerializeField]
+        [Min(0.1f)]
+        private float returnHomeSpeedMultiplier = 1f;
 
         [Header("Legacy Migration")]
         [SerializeField]
@@ -65,12 +71,16 @@ namespace RPGProject.Systems
         private EnemyCombatState currentState = EnemyCombatState.Idle;
         private bool hasForcedTarget;
         private bool wasDamagedByTarget;
+        private Vector2 homePosition;
+        private bool hasHomePosition;
         private readonly EnemyCombatBehaviorResolver behaviorResolver = new();
+        private readonly EnemyCombatStateResolver stateResolver = new();
 
         public event Action<EnemyCombatController, EnemyCombatState> StateChanged;
 
         public EnemyCombatState CurrentState => currentState;
         public HealthComponent CurrentTarget => targetHealth;
+        public Vector2 HomePosition => homePosition;
         private float DetectionRange => behaviorSettings != null ? behaviorSettings.DetectionRange : fallbackDetectionRange;
         private float AttackRange => combatActor != null ? combatActor.AttackRange : fallbackAttackRange;
 
@@ -79,6 +89,7 @@ namespace RPGProject.Systems
             health = GetComponent<HealthComponent>();
             motor = GetComponent<CharacterMotor2D>();
             ResolveCombatActor();
+            CaptureHomePosition();
         }
 
         private void OnEnable()
@@ -98,6 +109,13 @@ namespace RPGProject.Systems
             ResolveReferences();
 
             ResolveTarget();
+            if (ShouldReturnHome())
+            {
+                ReturnHome();
+                PublishState(EnemyCombatState.Returning);
+                return;
+            }
+
             EnemyCombatContext context = CreateContext();
             EnemyCombatIntent intent = ResolveIntent(context);
             ExecuteIntent(intent);
@@ -129,33 +147,40 @@ namespace RPGProject.Systems
             {
                 case EnemyCombatIntentType.Flee:
                     FleeFromTarget();
-                    PublishState(EnemyCombatState.Fleeing);
                     break;
                 case EnemyCombatIntentType.Chase:
                     MoveTowardTarget();
-                    PublishState(EnemyCombatState.Chasing);
                     break;
                 case EnemyCombatIntentType.Attack:
                     StopMoving();
                     combatActor.SetTarget(targetHealth);
                     combatActor.TryAttackCurrentTarget();
-                    PublishState(EnemyCombatState.Attacking);
                     break;
                 case EnemyCombatIntentType.Hold:
                     StopMoving();
                     combatActor?.ClearTarget();
-                    PublishState(EnemyCombatState.Alert);
                     break;
                 default:
                     StopMoving();
                     combatActor?.ClearTarget();
-                    PublishState(health != null && health.IsDead ? EnemyCombatState.Dead : EnemyCombatState.Idle);
                     break;
             }
+
+            PublishState(stateResolver.Resolve(intent, health != null && health.IsDead));
         }
 
         private void ResolveTarget()
         {
+            if (ShouldBreakLeash())
+            {
+                targetHealth = null;
+                explicitTarget = null;
+                hasForcedTarget = false;
+                wasDamagedByTarget = false;
+                combatActor?.ClearTarget();
+                return;
+            }
+
             if (targetHealth != null && !targetHealth.IsDead && IsTargetStillRelevant(targetHealth))
             {
                 return;
@@ -174,7 +199,7 @@ namespace RPGProject.Systems
                 return;
             }
 
-            targetHealth = IsWithinDetectionRange(player.transform.position) ? playerHealth : null;
+            targetHealth = ShouldAcquireTargetOnSight() && IsWithinDetectionRange(player.transform.position) ? playerHealth : null;
         }
 
         public void SetTarget(HealthComponent target)
@@ -193,6 +218,12 @@ namespace RPGProject.Systems
             combatActor?.ClearTarget();
             StopMoving();
             PublishState(health != null && health.IsDead ? EnemyCombatState.Dead : EnemyCombatState.Idle);
+        }
+
+        public void SetHomePosition(Vector2 position)
+        {
+            homePosition = position;
+            hasHomePosition = true;
         }
 
         private bool IsWithinDetectionRange(Vector2 position)
@@ -237,6 +268,41 @@ namespace RPGProject.Systems
             motor.SetMovementTarget(currentPosition + awayDirection.normalized * fleeDistance, 0.1f, fleeSpeedMultiplier);
         }
 
+        private bool ShouldBreakLeash()
+        {
+            if (!hasHomePosition || leashDistanceFromHome <= 0f || targetHealth == null)
+            {
+                return false;
+            }
+
+            if (hasForcedTarget || wasDamagedByTarget)
+            {
+                return false;
+            }
+
+            return Vector2.SqrMagnitude((Vector2)transform.position - homePosition) > leashDistanceFromHome * leashDistanceFromHome;
+        }
+
+        private bool ShouldReturnHome()
+        {
+            if (!returnHomeWhenTargetLost || !hasHomePosition || targetHealth != null || health == null || health.IsDead)
+            {
+                return false;
+            }
+
+            return Vector2.SqrMagnitude((Vector2)transform.position - homePosition) > returnHomeStopDistance * returnHomeStopDistance;
+        }
+
+        private void ReturnHome()
+        {
+            if (motor == null)
+            {
+                return;
+            }
+
+            motor.SetMovementTarget(homePosition, returnHomeStopDistance, returnHomeSpeedMultiplier);
+        }
+
         private EnemyCombatContext CreateContext()
         {
             bool hasTarget = targetHealth != null;
@@ -265,6 +331,11 @@ namespace RPGProject.Systems
             }
 
             return IsWithinDetectionRange(candidate.transform.position);
+        }
+
+        private bool ShouldAcquireTargetOnSight()
+        {
+            return behaviorSettings == null || behaviorSettings.ShouldAcquireOnSight;
         }
 
         private void StopMoving()
@@ -303,6 +374,7 @@ namespace RPGProject.Systems
             }
 
             ResolveCombatActor();
+            CaptureHomePosition();
         }
 
         private void SubscribeEvents()
@@ -391,8 +463,21 @@ namespace RPGProject.Systems
                 return;
             }
 
+            EnemyCombatState previousState = currentState;
             currentState = nextState;
             StateChanged?.Invoke(this, currentState);
+            GameplayEvents.PublishEnemyStateChanged(this, previousState, currentState);
+        }
+
+        private void CaptureHomePosition()
+        {
+            if (hasHomePosition)
+            {
+                return;
+            }
+
+            homePosition = transform.position;
+            hasHomePosition = true;
         }
     }
 }

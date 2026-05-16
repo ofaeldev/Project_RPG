@@ -25,6 +25,6 @@ MonoBehaviour:
   - objectiveId: kill_mist_rats
     objectiveType: 0
     targetId: mist_rat
-    description: Derrote ratos da nevoa
+    description: Derrote ratos nos campos
     requiredAmount: 10
   isRepeatable: 0

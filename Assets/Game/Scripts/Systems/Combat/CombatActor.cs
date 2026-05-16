@@ -178,6 +178,7 @@ namespace RPGProject.Systems
 
             nextAttackTime = Time.time + AttackInterval;
             AttackResolved?.Invoke(this, targetHealth, damage);
+            GameplayEvents.PublishCombatAttackResolved(this, targetHealth, damage);
             return true;
         }
 

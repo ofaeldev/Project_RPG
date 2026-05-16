@@ -1,0 +1,19 @@
+{
+    "name": "RPGProject.PlayModeTests",
+    "rootNamespace": "RPGProject.Tests",
+    "references": [
+        "RPGProject.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "noEngineReferences": false
+}

@@ -8,14 +8,6 @@ namespace RPGProject.Systems
     [RequireComponent(typeof(NPCInteractionTarget))]
     public sealed class NPCQuestIndicator : MonoBehaviour
     {
-        private enum IndicatorVisualState
-        {
-            Hidden,
-            Available,
-            Active,
-            Completed
-        }
-
         [Header("Indicator")]
         [SerializeField]
         private TextMeshPro indicatorText;
@@ -69,7 +61,7 @@ namespace RPGProject.Systems
 
         private NPCInteractionTarget npcTarget;
         private bool isSubscribed;
-        private IndicatorVisualState visualState = IndicatorVisualState.Hidden;
+        private QuestIndicatorVisualState visualState = QuestIndicatorVisualState.Hidden;
         private float animationSeed;
 
         private void Awake()
@@ -131,40 +123,33 @@ namespace RPGProject.Systems
             ApplyState(GetVisualState());
         }
 
-        private IndicatorVisualState GetVisualState()
+        private QuestIndicatorVisualState GetVisualState()
         {
             if (npcTarget == null || npcTarget.QuestToOffer == null)
             {
-                return IndicatorVisualState.Hidden;
+                return QuestIndicatorVisualState.Hidden;
             }
 
             QuestState questState = QuestManager.Instance != null
                 ? QuestManager.Instance.GetQuestState(npcTarget.QuestToOffer.QuestId)
                 : QuestState.Available;
 
-            return questState switch
-            {
-                QuestState.Locked => IndicatorVisualState.Available,
-                QuestState.Available => IndicatorVisualState.Available,
-                QuestState.Active => IndicatorVisualState.Active,
-                QuestState.Completed => IndicatorVisualState.Completed,
-                _ => IndicatorVisualState.Hidden
-            };
+            return QuestIndicatorStateResolver.Resolve(npcTarget.QuestToOffer, questState);
         }
 
-        private void ApplyState(IndicatorVisualState nextState)
+        private void ApplyState(QuestIndicatorVisualState nextState)
         {
             visualState = nextState;
 
             switch (visualState)
             {
-                case IndicatorVisualState.Available:
+                case QuestIndicatorVisualState.Available:
                     ApplyIndicator(availableSymbol, availableColor);
                     return;
-                case IndicatorVisualState.Active:
+                case QuestIndicatorVisualState.Active:
                     ApplyIndicator(activeSymbol, activeColor);
                     return;
-                case IndicatorVisualState.Completed:
+                case QuestIndicatorVisualState.Completed:
                     ApplyIndicator(completedSymbol, completedColor);
                     return;
                 default:
@@ -231,7 +216,7 @@ namespace RPGProject.Systems
 
         private void AnimateIndicator()
         {
-            if (indicatorText == null || visualState == IndicatorVisualState.Hidden)
+            if (indicatorText == null || visualState == QuestIndicatorVisualState.Hidden)
             {
                 return;
             }

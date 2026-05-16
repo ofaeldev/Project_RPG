@@ -89,6 +89,7 @@ namespace RPGProject.Systems
         private readonly InventoryInteractionFlow interactionFlow = new();
         private readonly InventorySlotTransferService slotTransferService = new();
         private readonly InventoryDropFlow dropFlow = new();
+        private InventoryItemActionFlow itemActionFlow;
         private Canvas rootCanvas;
         private readonly InventoryDetailsFormatter detailsFormatter = new();
         private InventoryPresenter presenter;
@@ -96,6 +97,7 @@ namespace RPGProject.Systems
 
         private void Awake()
         {
+            itemActionFlow = new InventoryItemActionFlow(dropFlow);
             rootCanvas = GetComponentInParent<Canvas>();
             BindView();
             view.Initialize(transform);
@@ -252,26 +254,26 @@ namespace RPGProject.Systems
 
         public void UseSelectedItem()
         {
-            InventoryItemStack selectedStack = GetSelectedStack();
-            if (selectedStack == null || InventoryManager.Instance == null)
+            itemActionFlow ??= new InventoryItemActionFlow(dropFlow);
+            if (!itemActionFlow.TryUseSelected(InventoryManager.Instance, interactionFlow, visibleItems))
             {
                 return;
             }
 
-            InventoryManager.Instance.TryUseSlot(interactionFlow.SelectedIndex, new ItemUseContext(null), out _);
             HideActionMenu();
             Refresh();
         }
 
         public void DropSelectedItemNearPlayer()
         {
-            InventoryItemStack selectedStack = GetSelectedStack();
-            if (selectedStack == null)
-            {
-                return;
-            }
-
-            if (TryDropStackAtWorldPosition(interactionFlow.SelectedIndex, selectedStack, Vector2.zero))
+            itemActionFlow ??= new InventoryItemActionFlow(dropFlow);
+            if (itemActionFlow.TryDropSelected(
+                InventoryManager.Instance,
+                InventoryWorldDropper.Instance,
+                interactionFlow,
+                visibleItems,
+                Vector2.zero,
+                gameObject))
             {
                 HideActionMenu();
                 Refresh();

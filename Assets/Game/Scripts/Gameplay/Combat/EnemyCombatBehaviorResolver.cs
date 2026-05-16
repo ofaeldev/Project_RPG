@@ -2,77 +2,48 @@ namespace RPGProject.Gameplay
 {
     public sealed class EnemyCombatBehaviorResolver
     {
+        private readonly IEnemyCombatBehaviorStrategy[] strategies;
+        private readonly EnemyEngagementResolver engagementResolver = new();
+
+        public EnemyCombatBehaviorResolver()
+            : this(new IEnemyCombatBehaviorStrategy[]
+            {
+                new DeadOrInvalidEnemyBehaviorStrategy(),
+                new DisengagedEnemyBehaviorStrategy(),
+                new FleeEnemyBehaviorStrategy(),
+                new AttackEnemyBehaviorStrategy(),
+                new MovementEnemyBehaviorStrategy()
+            })
+        {
+        }
+
+        public EnemyCombatBehaviorResolver(IEnemyCombatBehaviorStrategy[] strategies)
+        {
+            this.strategies = strategies;
+        }
+
         public EnemyCombatIntent Resolve(EnemyCombatBehaviorSettings settings, EnemyCombatContext context)
         {
-            if (context.SelfDead)
+            if (strategies == null || strategies.Length == 0)
             {
                 return EnemyCombatIntent.Idle;
             }
 
-            if (!CanEngage(settings, context))
+            for (int i = 0; i < strategies.Length; i++)
             {
-                return EnemyCombatIntent.Idle;
+                IEnemyCombatBehaviorStrategy strategy = strategies[i];
+                if (strategy != null && strategy.CanResolve(settings, context))
+                {
+                    return strategy.Resolve(settings, context);
+                }
             }
 
-            if (ShouldFlee(settings, context))
-            {
-                return EnemyCombatIntent.Flee;
-            }
-
-            if (settings != null && settings.ShouldKeepDistance && context.DistanceToTarget < settings.PreferredDistance)
-            {
-                return EnemyCombatIntent.Flee;
-            }
-
-            if (context.TargetInAttackRange)
-            {
-                return EnemyCombatIntent.Attack;
-            }
-
-            if (settings == null || settings.ShouldChase)
-            {
-                return EnemyCombatIntent.Chase;
-            }
-
-            if (settings.ShouldKeepDistance)
-            {
-                return EnemyCombatIntent.Chase;
-            }
-
-            return EnemyCombatIntent.Hold;
+            return EnemyCombatIntent.Idle;
         }
 
         public bool CanEngage(EnemyCombatBehaviorSettings settings, EnemyCombatContext context)
         {
-            if (!context.HasTarget || context.TargetDead)
-            {
-                return false;
-            }
-
-            if (settings == null)
-            {
-                return context.TargetInDetectionRange;
-            }
-
-            return settings.EngagementPolicy switch
-            {
-                EnemyEngagementPolicy.AggressiveOnSight => context.TargetInDetectionRange,
-                EnemyEngagementPolicy.RetaliateWhenTargeted => context.HasForcedTarget,
-                EnemyEngagementPolicy.RetaliateWhenDamaged => context.WasDamagedByTarget,
-                EnemyEngagementPolicy.Passive => false,
-                _ => false
-            };
-        }
-
-        private static bool ShouldFlee(EnemyCombatBehaviorSettings settings, EnemyCombatContext context)
-        {
-            if (settings == null)
-            {
-                return false;
-            }
-
-            return settings.ShouldFlee(context.NormalizedHealth)
-                || (settings.ShouldFleeWhenDamaged && context.WasDamagedByTarget);
+            return engagementResolver.CanEngage(settings, context);
         }
     }
 }

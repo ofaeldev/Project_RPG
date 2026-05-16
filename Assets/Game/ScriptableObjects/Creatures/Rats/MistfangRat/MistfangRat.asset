@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f71f1a087d41e5b3920cc0f7498238, type: 3}
+  m_Name: MistfangRat
+  m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Gameplay.CreatureDefinition
+  creatureId: mistfang_rat
+  displayName: Rato Presa-da-Bruma
+  description: Uma evolucao agressiva dos ratos locais, deformada pela nevoa. Persegue
+    presas, mas recua quando esta quase morrendo.
+  maximumHealth: 24
+  combatStats: {fileID: 11400000, guid: 4e72b9dda1a1db943922a94806d5e3cc, type: 2}
+  attackSettings: {fileID: 11400000, guid: 908ab918cc180a64a8a81f28614c16a7, type: 2}
+  behaviorSettings: {fileID: 11400000, guid: 04e01757a592a754885c6200cc375279, type: 2}
+  experienceReward: 5
+  lootTable: {fileID: 11400000, guid: 8ca27c239acae6d44aa40c49c423c500, type: 2}

@@ -24,10 +24,12 @@ namespace RPGProject.Systems
 
         private bool questEventsSubscribed;
         private bool inventoryEventsSubscribed;
+        private GameplayFeedbackPresenter presenter;
 
         private void Awake()
         {
             ResolveReferences();
+            CreatePresenter();
         }
 
         private void OnEnable()
@@ -90,61 +92,38 @@ namespace RPGProject.Systems
 
         private void OnQuestStateChanged(QuestDefinition quest, QuestState state)
         {
-            if (quest == null)
+            CreatePresenter();
+            if (presenter.TryCreateQuestStateFeedback(quest, state, out GameplayFeedbackMessage message))
             {
-                return;
-            }
-
-            switch (state)
-            {
-                case QuestState.Active:
-                    GameplayUIEvents.ShowQuest($"{questAcceptedPrefix}: {quest.Title}", source: quest);
-                    break;
-                case QuestState.Completed:
-                    GameplayUIEvents.ShowQuest($"{questCompletedPrefix}: {quest.Title}", source: quest);
-                    break;
-                case QuestState.Failed:
-                    GameplayUIEvents.ShowWarning($"Quest falhou: {quest.Title}", source: quest);
-                    break;
+                GameplayUIEvents.Show(message.Text, message.MessageType, message.VisibleSeconds, quest);
             }
         }
 
         private void OnQuestObjectiveProgressChanged(QuestDefinition quest, QuestObjectiveDefinition objective, QuestObjectiveProgress progress)
         {
-            if (quest == null || objective == null || progress == null)
+            CreatePresenter();
+            if (presenter.TryCreateObjectiveFeedback(quest, objective, progress, out GameplayFeedbackMessage message))
             {
-                return;
+                GameplayUIEvents.Show(message.Text, message.MessageType, message.VisibleSeconds, quest);
             }
-
-            string objectiveText = string.IsNullOrWhiteSpace(objective.Description) ? objective.ObjectiveId : objective.Description;
-            GameplayUIEvents.ShowQuest($"{objectiveUpdatedPrefix}: {objectiveText} {progress.CurrentAmount}/{progress.RequiredAmount}", source: quest);
         }
 
         private void OnQuestRewardClaimed(QuestDefinition quest)
         {
-            if (quest == null)
+            CreatePresenter();
+            if (presenter.TryCreateRewardFeedback(quest, out GameplayFeedbackMessage message))
             {
-                return;
+                GameplayUIEvents.Show(message.Text, message.MessageType, message.VisibleSeconds, quest);
             }
-
-            string reward = string.IsNullOrWhiteSpace(quest.RewardDescription) ? quest.Title : quest.RewardDescription;
-            GameplayUIEvents.ShowSuccess($"{questRewardPrefix}: {reward}", source: quest);
         }
 
-        private static void OnItemUseResolved(ItemUseResult result, GameObject source)
+        private void OnItemUseResolved(ItemUseResult result, GameObject source)
         {
-            if (string.IsNullOrWhiteSpace(result.FeedbackMessage))
+            CreatePresenter();
+            int sourceId = source != null ? source.GetInstanceID() : 0;
+            if (presenter.TryCreateItemUseFeedback(result, sourceId, out GameplayFeedbackMessage message))
             {
-                return;
-            }
-
-            if (result.WasUsed)
-            {
-                GameplayUIEvents.ShowSuccess(result.FeedbackMessage, source: source);
-            }
-            else
-            {
-                GameplayUIEvents.ShowWarning(result.FeedbackMessage, source: source);
+                GameplayUIEvents.Show(message.Text, message.MessageType, message.VisibleSeconds, source);
             }
         }
 
@@ -159,6 +138,15 @@ namespace RPGProject.Systems
             {
                 feedbackController = GlobalFeedbackUIController.Instance;
             }
+        }
+
+        private void CreatePresenter()
+        {
+            presenter = new GameplayFeedbackPresenter(
+                questAcceptedPrefix,
+                questCompletedPrefix,
+                questRewardPrefix,
+                objectiveUpdatedPrefix);
         }
     }
 }
