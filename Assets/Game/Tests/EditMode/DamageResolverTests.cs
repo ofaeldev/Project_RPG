@@ -38,7 +38,7 @@ namespace RPGProject.Tests
         {
             AddStats(attacker, attack: 4, defense: 0);
             AddStats(defender, attack: 0, defense: 2);
-            SetPrivateField(attackSettings, "damage", 3);
+            SetPrivateField(attackSettings, "baseDamage", 3);
 
             DamageResult result = resolver.ResolveDamage(new DamageContext(attacker, defender.GetComponent<CombatTarget>(), attackSettings));
 
@@ -50,7 +50,7 @@ namespace RPGProject.Tests
         {
             AddStats(attacker, attack: 1, defense: 0);
             AddStats(defender, attack: 0, defense: 99);
-            SetPrivateField(attackSettings, "damage", 3);
+            SetPrivateField(attackSettings, "baseDamage", 3);
 
             DamageResult result = resolver.ResolveDamage(new DamageContext(attacker, defender.GetComponent<CombatTarget>(), attackSettings));
 

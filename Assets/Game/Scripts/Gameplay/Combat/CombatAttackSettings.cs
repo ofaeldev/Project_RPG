@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RPGProject.Gameplay
 {
@@ -14,7 +15,8 @@ namespace RPGProject.Gameplay
 
         [SerializeField]
         [Min(1)]
-        private int damage = 5;
+        [FormerlySerializedAs("damage")]
+        private int baseDamage = 5;
 
         [SerializeField]
         [Min(0.01f)]
@@ -24,7 +26,8 @@ namespace RPGProject.Gameplay
         private DamageResolver damageResolver;
 
         public float AttackRange => attackRange;
-        public int Damage => damage;
+        public int BaseDamage => baseDamage;
+        public int Damage => BaseDamage;
         public float AttackInterval => 1f / Mathf.Max(0.01f, attacksPerSecond);
         public DamageResolver DamageResolver => damageResolver;
     }

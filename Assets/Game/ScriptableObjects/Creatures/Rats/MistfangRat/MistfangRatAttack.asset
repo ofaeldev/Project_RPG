@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MistfangRatAttack
   m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Gameplay.CombatAttackSettings
   attackRange: 1.1
-  damage: 1
+  baseDamage: 1
   attacksPerSecond: 0.45
   damageResolver: {fileID: 11400000, guid: 23f6be9baa0958d4cbf0640abac45e09, type: 2}

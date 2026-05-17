@@ -34,7 +34,7 @@ namespace RPGProject.Tests
 
             resolver = ScriptableObject.CreateInstance<BasicDamageResolver>();
             attackSettings = ScriptableObject.CreateInstance<CombatAttackSettings>();
-            SetPrivateField(attackSettings, "damage", 3);
+            SetPrivateField(attackSettings, "baseDamage", 3);
             SetPrivateField(attackSettings, "attackRange", 1.5f);
             SetPrivateField(attackSettings, "attacksPerSecond", 1f);
             SetPrivateField(attackSettings, "damageResolver", resolver);

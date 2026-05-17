@@ -279,7 +279,6 @@ public static class TutorialQuestSceneBuilder
             CombatAttackSettings ratAttackSettings = isMistfang ? mistfangRatAttackSettings : fieldRatAttackSettings;
             EnemyCombatBehaviorSettings ratBehaviorSettings = isMistfang ? mistfangRatBehaviorSettings : fieldRatBehaviorSettings;
             LootTableDefinition ratLootTable = isMistfang ? mistfangRatLootTable : fieldRatLootTable;
-            string ratDisplayName = isMistfang ? "Rato Presa-da-Bruma" : "Rato do Campo";
             Color ratColor = isMistfang ? new Color(0.42f, 0.48f, 0.56f, 1f) : new Color(0.60f, 0.50f, 0.43f, 1f);
 
             GameObject rat = CreateActor($"Rat_{i + 1:00}", position, squareSprite, ratColor, new Vector2(0.45f, 0.32f));
@@ -288,6 +287,7 @@ public static class TutorialQuestSceneBuilder
             ratBody.freezeRotation = true;
             ratBody.interpolation = RigidbodyInterpolation2D.Interpolate;
             CharacterMotor2D ratMotor = rat.AddComponent<CharacterMotor2D>();
+            CreatureIdentity ratIdentity = rat.AddComponent<CreatureIdentity>();
             HealthComponent ratHealth = rat.AddComponent<HealthComponent>();
             CombatActor ratCombatActor = rat.AddComponent<CombatActor>();
             rat.AddComponent<HitFlashPresenter>();
@@ -296,6 +296,9 @@ public static class TutorialQuestSceneBuilder
             rat.AddComponent<CorpseDecayController>();
             CorpseLootSource corpseLoot = rat.AddComponent<CorpseLootSource>();
             rat.AddComponent<CorpseLootIndicatorPresenter>();
+            SetObject(ratIdentity, "creatureDefinition", creatureDefinition);
+            SetInt(ratIdentity, "displayIndex", i + 1);
+            SetString(ratIdentity, "fallbackDisplayName", "Rato");
             SetObject(ratMotor, "movementSettings", ratMovementSettings);
             SetObject(ratCombatActor, "baseStats", ratStats);
             SetObject(ratCombatActor, "attackSettings", ratAttackSettings);
@@ -314,13 +317,10 @@ public static class TutorialQuestSceneBuilder
             SetObject(ratCombat, "combatActor", ratCombatActor);
             SetInt(ratHealth, "maximumHealth", creatureDefinition.MaximumHealth);
             SetInt(ratHealth, "currentHealth", creatureDefinition.MaximumHealth);
-            SetString(corpseLoot, "displayName", $"Corpo de {ratDisplayName} {i + 1}");
             SetObject(corpseLoot, "lootTable", ratLootTable);
             QuestKillTarget killTarget = rat.AddComponent<QuestKillTarget>();
             SetString(killTarget, "targetId", "mist_rat");
             EnemyInteractionTarget enemy = rat.AddComponent<EnemyInteractionTarget>();
-            SetString(enemy, "displayName", $"{ratDisplayName} {i + 1}");
-            SetObject(enemy, "questKillTarget", killTarget);
             SetBool(enemy, "deactivateOnDefeat", false);
             AddWorldLabel(rat.transform, isMistfang ? $"Presa-da-Bruma {i - 6}" : $"Rato {i + 1}", Color.white, new Vector3(0f, 0.42f, 0f), 2.4f);
         }
@@ -569,7 +569,7 @@ public static class TutorialQuestSceneBuilder
     {
         CombatAttackSettings settings = GetOrCreateAsset<CombatAttackSettings>($"{folder}/{assetName}.asset");
         SetFloat(settings, "attackRange", attackRange);
-        SetInt(settings, "damage", damage);
+        SetInt(settings, "baseDamage", damage);
         SetFloat(settings, "attacksPerSecond", attacksPerSecond);
         SetObject(settings, "damageResolver", damageResolver);
         EditorUtility.SetDirty(settings);

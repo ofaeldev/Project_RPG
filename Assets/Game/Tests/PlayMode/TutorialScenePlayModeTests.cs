@@ -49,6 +49,24 @@ namespace RPGProject.Tests
             Assert.IsTrue(rats.All(rat => rat != null), "Tutorial scene should contain Rat_01 through Rat_10.");
 
             CorpseLootSource firstCorpseLoot = rats[0].GetComponent<CorpseLootSource>();
+            CreatureIdentity firstRatIdentity = rats[0].GetComponent<CreatureIdentity>();
+            EnemyInteractionTarget firstEnemyInteraction = rats[0].GetComponent<EnemyInteractionTarget>();
+            CombatActor firstRatActor = rats[0].GetComponent<CombatActor>();
+
+            Assert.NotNull(firstRatIdentity, "Rat_01 should derive its display identity from CreatureIdentity.");
+            Assert.AreEqual("Rato Presa-da-Bruma 1", firstRatIdentity.DisplayName);
+            Assert.NotNull(firstEnemyInteraction, "Rat_01 should expose enemy right-click interaction.");
+            Assert.NotNull(firstRatActor, "Rat_01 should have CombatActor for combat range and attack execution.");
+            Assert.AreEqual(
+                firstRatActor.AttackRange,
+                firstEnemyInteraction.GetActionRange(RightClickActionType.Attack),
+                0.001f,
+                "Enemy interaction attack range should mirror CombatActor instead of owning duplicate range data.");
+            Assert.AreEqual(
+                $"Corpo de {firstRatIdentity.DisplayName}",
+                firstCorpseLoot.DisplayName,
+                "Corpse loot display name should be derived from the creature identity.");
+
             ItemDefinition deterministicLootItem = ResolveFirstConfiguredLootItem(firstCorpseLoot);
             ConfigureDeterministicLoot(firstCorpseLoot, deterministicLootItem);
 

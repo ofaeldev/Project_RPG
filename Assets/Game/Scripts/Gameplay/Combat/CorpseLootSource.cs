@@ -8,10 +8,6 @@ namespace RPGProject.Gameplay
     public sealed class CorpseLootSource : MonoBehaviour, ILootSource
     {
         [Header("Loot")]
-        [SerializeField]
-        private string displayName = "Corpse";
-
-        [SerializeField]
         private ItemStackDefinition[] loot = new ItemStackDefinition[0];
 
         [SerializeField]
@@ -27,9 +23,10 @@ namespace RPGProject.Gameplay
         private readonly List<ItemStackDefinition> rolledLoot = new();
         private readonly LootClaimService lootClaimService = new();
         private HealthComponent health;
+        private CreatureIdentity identity;
         private bool hasRolledLoot;
 
-        public string DisplayName => displayName;
+        public string DisplayName => ResolveIdentity() != null ? $"Corpo de {identity.DisplayName}" : "Corpo";
         public IReadOnlyList<ItemStackDefinition> Loot
         {
             get
@@ -44,6 +41,7 @@ namespace RPGProject.Gameplay
         private void Awake()
         {
             health = GetComponent<HealthComponent>();
+            identity = GetComponent<CreatureIdentity>();
         }
 
         private void OnEnable()
@@ -51,6 +49,11 @@ namespace RPGProject.Gameplay
             if (health == null)
             {
                 health = GetComponent<HealthComponent>();
+            }
+
+            if (identity == null)
+            {
+                identity = GetComponent<CreatureIdentity>();
             }
 
             if (health != null)
@@ -119,6 +122,16 @@ namespace RPGProject.Gameplay
         private void OnRevived(HealthChange change)
         {
             ResetLootRoll();
+        }
+
+        private CreatureIdentity ResolveIdentity()
+        {
+            if (identity == null)
+            {
+                identity = GetComponent<CreatureIdentity>();
+            }
+
+            return identity;
         }
     }
 }

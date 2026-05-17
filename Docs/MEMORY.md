@@ -199,6 +199,8 @@ Regras:
 - Nao escrever diretamente no `Rigidbody2D` a partir de input/action controllers.
 - Nao adicionar input readers por feature enquanto eventos/estado existentes forem suficientes.
 - Doors e containers consultam inventario central; nao possuem ownership local de itens.
+- `EnemyInteractionTarget` deve ser apenas adaptador de clique direito para ataque/loot. Nao deve possuir nome de display, range de ataque, loot ou progresso de quest.
+- Criaturas usam `CreatureIdentity` ligado a `CreatureDefinition` para nome/identidade exibivel por UI, logs e fontes de loot.
 
 ### Dialogue, Quest e Quest Log
 
@@ -282,6 +284,7 @@ Regras:
 - `LootClaimService` isola transferencia de stacks para inventario.
 - Containers e corpses possuem conteudo/estado/claim rules, mas nao decidem fluxo de UI.
 - Corpse loot vive em `CorpseLootSource`; death/decay nao concedem itens diretamente.
+- `CorpseLootSource.DisplayName` deriva de `CreatureIdentity` quando existir; nao duplicar string de nome de corpo em cada inimigo.
 - Preferir `LootTableDefinition` para loot de inimigo; direct `ItemStackDefinition[]` em corpse e fallback.
 - Loot table rola uma vez por fonte de loot no runtime.
 
@@ -290,7 +293,7 @@ Regras:
 Scripts principais:
 
 - `HealthComponent`, `HealthChange`, `HealthChangeType`.
-- `CombatStatsDefinition`, `ICombatStatsProvider`, `CharacterCombatStats` legacy.
+- `CreatureIdentity`, `CombatStatsDefinition`, `ICombatStatsProvider`, `CharacterCombatStats` legacy.
 - `CombatAttackSettings`, `DamageResolver`, `BasicDamageResolver`, `DamageContext`, `DamageResult`.
 - `CombatActor`, `AutoAttackController`, `EnemyCombatController`.
 - `EnemyCombatBehaviorSettings`, `EnemyCombatBehaviorResolver`, `EnemyCombatContext`, `EnemyCombatIntent`.
@@ -305,6 +308,7 @@ Regras:
 - `CombatActor` centraliza identidade de combate e execucao de ataque: stats, target, targetability, range, cooldown, damage resolution/application e eventos.
 - Controllers decidem quando agir; formulas ficam em `DamageResolver`/`BasicDamageResolver`.
 - Nao duplicar cooldown/range/damage application em player/enemy controllers.
+- `CombatAttackSettings.baseDamage` representa dano base do golpe/perfil de ataque; `CombatStatsDefinition.Attack` representa poder ofensivo do ator. Nao tratar os dois como campos equivalentes.
 - `AutoAttackController` e player-specific: follow target, chase target selecionado e pedir ataques ao `CombatActor`.
 - `EnemyCombatController` e AI integration: resolve target, monta contexto, recebe intent de `EnemyCombatBehaviorResolver`, executa movimento/ataque.
 - `EnemyCombatController` tambem guarda `HomePosition` e leash basico: ao perder alvo fora do alcance de perseguicao, o inimigo deve retornar andando para a origem/home, nunca teleportar. Respawn completo deve ser um sistema separado futuro em cima de spawn/home anchors.
@@ -365,6 +369,10 @@ Regras:
 - `EnemyCombatContext`, `EnemyCombatIntent` e `EnemyCombatBehaviorResolver` extraem decisao de AI para camada testavel.
 - `EnemyCombatVisualPresenter` conectado aos mist rats para leitura de estado.
 - Testes PlayMode criados em `Assets/Game/Tests/PlayMode/TutorialScenePlayModeTests.cs`, validando a cena tutorial de ponta a ponta sem input manual e garantindo que mist rats engajam o player dentro do detection range, retornam andando para home quando quebram leash e nao teleportam por feedback visual de ataque.
+- `CreatureIdentity` extraido para centralizar display identity de criaturas a partir de `CreatureDefinition`; `EnemyInteractionTarget` deixou de possuir display name, range de ataque duplicado e ponte de quest progress.
+- `QuestKillTarget` passou a reportar kills diretamente ao observar `HealthComponent.Died`, removendo essa responsabilidade da interacao de clique.
+- `CorpseLootSource` passou a derivar nome do corpo via `CreatureIdentity`, evitando string duplicada por inimigo.
+- `CombatAttackSettings.damage` foi renomeado semanticamente para `baseDamage` com migracao por `FormerlySerializedAs`.
 
 ## Proximo Passo Recomendado
 

@@ -21,9 +21,36 @@ namespace RPGProject.Gameplay
         private bool reportOnlyOnce = true;
 
         private bool hasReported;
+        private HealthComponent health;
 
         public string TargetId => targetId;
         public bool HasReported => hasReported;
+
+        private void Awake()
+        {
+            health = GetComponent<HealthComponent>();
+        }
+
+        private void OnEnable()
+        {
+            if (health == null)
+            {
+                health = GetComponent<HealthComponent>();
+            }
+
+            if (health != null)
+            {
+                health.Died += OnDied;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (health != null)
+            {
+                health.Died -= OnDied;
+            }
+        }
 
         public bool ReportKilled()
         {
@@ -40,6 +67,11 @@ namespace RPGProject.Gameplay
 
             hasReported = true;
             return QuestManager.Instance != null && QuestManager.Instance.ReportKill(targetId, killAmount);
+        }
+
+        private void OnDied(HealthChange change)
+        {
+            ReportKilled();
         }
     }
 }

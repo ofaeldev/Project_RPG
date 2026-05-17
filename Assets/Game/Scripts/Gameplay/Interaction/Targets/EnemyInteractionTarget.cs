@@ -8,38 +8,14 @@ namespace RPGProject.Gameplay
     [RequireComponent(typeof(CombatActor))]
     public sealed class EnemyInteractionTarget : RightClickActionTarget
     {
-        [Header("Enemy")]
-        [Tooltip("Nome do inimigo para debug e logs.")]
-        [SerializeField]
-        private string displayName = "Enemy";
-
-        [Tooltip("O inimigo esta morto e pode ser saqueado.")]
-        [SerializeField]
-        private bool isDead;
-
-        [Tooltip("Permite ataque de longa distancia quando o inimigo nao esta morto.")]
-        [SerializeField]
-        private bool allowRangedAttack;
-
-        [Tooltip("Distancia maxima para ataques corpo a corpo.")]
-        [SerializeField]
-        [Min(0f)]
-        private float meleeAttackRange = 1.5f;
-
-        [Tooltip("Distancia maxima para ataques a longa distancia.")]
-        [SerializeField]
-        [Min(0f)]
-        private float rangedAttackRange = 4f;
-
+        [Header("Interaction")]
         [Tooltip("Distancia maxima para saquear o inimigo morto.")]
         [SerializeField]
         [Min(0f)]
         private float lootRange = 1.25f;
 
-        [Header("Quest Progress")]
-        [Tooltip("Alvo opcional usado para contabilizar kills em missoes.")]
         [SerializeField]
-        private QuestKillTarget questKillTarget;
+        private bool isDead;
 
         [Tooltip("Desativa o GameObject imediatamente quando ele e derrotado. Use apenas para placeholders; corpos normalmente usam CorpseDecayController.")]
         [SerializeField]
@@ -48,17 +24,14 @@ namespace RPGProject.Gameplay
         private HealthComponent health;
         private CombatActor combatActor;
         private ILootSource lootSource;
+        private CreatureIdentity identity;
 
         private void Awake()
         {
             health = GetComponent<HealthComponent>();
             combatActor = GetComponent<CombatActor>();
             lootSource = GetComponent<ILootSource>();
-
-            if (questKillTarget == null)
-            {
-                questKillTarget = GetComponent<QuestKillTarget>();
-            }
+            identity = GetComponent<CreatureIdentity>();
         }
 
         private void OnEnable()
@@ -88,7 +61,7 @@ namespace RPGProject.Gameplay
         {
             return actionType switch
             {
-                RightClickActionType.Attack => IsDead ? 0f : (allowRangedAttack ? Mathf.Max(meleeAttackRange, rangedAttackRange) : meleeAttackRange),
+                RightClickActionType.Attack => IsDead || combatActor == null ? 0f : combatActor.AttackRange,
                 RightClickActionType.Loot => lootRange,
                 _ => 0f,
             };
@@ -104,12 +77,12 @@ namespace RPGProject.Gameplay
 
                 if (attacker == null || combatActor == null)
                 {
-                    Debug.LogWarning($"Cannot start combat against {displayName}: missing attacker or combat actor.", gameObject);
+                    Debug.LogWarning($"Cannot start combat against {DisplayName}: missing attacker or combat actor.", gameObject);
                     return;
                 }
 
                 attacker.StartAttacking(combatActor);
-                GameplayUIEvents.ShowInfo($"Atacando {displayName}.", source: gameObject);
+                GameplayUIEvents.ShowInfo($"Atacando {DisplayName}.", source: gameObject);
                 return;
             }
 
@@ -121,11 +94,11 @@ namespace RPGProject.Gameplay
                     return;
                 }
 
-                GameplayUIEvents.ShowInfo($"{displayName} nao tem loot.", source: gameObject);
+                GameplayUIEvents.ShowInfo($"{DisplayName} nao tem loot.", source: gameObject);
                 return;
             }
 
-            Debug.Log($"Action '{context.ActionType}' is not supported by {displayName}.", gameObject);
+            Debug.Log($"Action '{context.ActionType}' is not supported by {DisplayName}.", gameObject);
         }
 
         public void Defeat()
@@ -136,9 +109,8 @@ namespace RPGProject.Gameplay
             }
 
             isDead = true;
-            questKillTarget?.ReportKilled();
-            Debug.Log($"{displayName} defeated.", gameObject);
-            GameplayUIEvents.ShowSuccess($"{displayName} derrotado.", source: gameObject);
+            Debug.Log($"{DisplayName} defeated.", gameObject);
+            GameplayUIEvents.ShowSuccess($"{DisplayName} derrotado.", source: gameObject);
 
             if (deactivateOnDefeat)
             {
@@ -147,6 +119,17 @@ namespace RPGProject.Gameplay
         }
 
         private bool IsDead => isDead || (health != null && health.IsDead);
+        private string DisplayName => ResolveIdentity() != null ? identity.DisplayName : gameObject.name;
+
+        private CreatureIdentity ResolveIdentity()
+        {
+            if (identity == null)
+            {
+                identity = GetComponent<CreatureIdentity>();
+            }
+
+            return identity;
+        }
 
         private void OnDied(HealthChange change)
         {

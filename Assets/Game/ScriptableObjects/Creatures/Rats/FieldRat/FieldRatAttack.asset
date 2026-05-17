@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FieldRatAttack
   m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Gameplay.CombatAttackSettings
   attackRange: 0.95
-  damage: 1
+  baseDamage: 1
   attacksPerSecond: 0.55
   damageResolver: {fileID: 11400000, guid: 23f6be9baa0958d4cbf0640abac45e09, type: 2}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerTutorialAttack
   m_EditorClassIdentifier: RPGProject.Runtime::RPGProject.Gameplay.CombatAttackSettings
   attackRange: 1.5
-  damage: 3
+  baseDamage: 3
   attacksPerSecond: 1
   damageResolver: {fileID: 11400000, guid: 23f6be9baa0958d4cbf0640abac45e09, type: 2}
