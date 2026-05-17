@@ -53,23 +53,34 @@ namespace RPGProject.Systems
 
         public bool TryDrop(ItemDefinition item, string fallbackItemId, int amount, Vector2 requestedWorldPosition, out GameObject droppedObject)
         {
+            return TryDrop(item, fallbackItemId, amount, requestedWorldPosition, out droppedObject, out _, out _);
+        }
+
+        public bool TryDrop(
+            ItemDefinition item,
+            string fallbackItemId,
+            int amount,
+            Vector2 requestedWorldPosition,
+            out GameObject droppedObject,
+            out InventoryDropFailureReason failureReason,
+            out string itemName)
+        {
             droppedObject = null;
+            failureReason = InventoryDropFailureReason.None;
+            itemName = ResolveItemName(item, fallbackItemId);
+
             if ((item == null || !item.HasValidId) && string.IsNullOrWhiteSpace(fallbackItemId))
             {
-                GameplayUIEvents.ShowWarning("Item invalido para descartar.", source: gameObject);
+                failureReason = InventoryDropFailureReason.InvalidItem;
                 return false;
             }
 
             Vector2 dropPosition = ResolveDropPosition(requestedWorldPosition);
             if (IsBlocked(dropPosition))
             {
-                GameplayUIEvents.ShowWarning("Nao da para soltar o item aqui.", source: gameObject);
+                failureReason = InventoryDropFailureReason.BlockedPosition;
                 return false;
             }
-
-            string itemName = item != null && !string.IsNullOrWhiteSpace(item.DisplayName)
-                ? item.DisplayName
-                : fallbackItemId;
 
             droppedObject = new GameObject($"{droppedItemPrefix}_{itemName}");
             droppedObject.transform.position = dropPosition;
@@ -91,8 +102,17 @@ namespace RPGProject.Systems
             var pickup = droppedObject.AddComponent<ItemPickupTarget>();
             pickup.Initialize(item, item != null ? item.ItemId : fallbackItemId, amount, itemName);
 
-            GameplayUIEvents.ShowLoot($"Item descartado: {itemName}", source: droppedObject);
             return true;
+        }
+
+        private static string ResolveItemName(ItemDefinition item, string fallbackItemId)
+        {
+            if (item != null && !string.IsNullOrWhiteSpace(item.DisplayName))
+            {
+                return item.DisplayName;
+            }
+
+            return fallbackItemId;
         }
 
         private Vector2 ResolveDropPosition(Vector2 requestedWorldPosition)

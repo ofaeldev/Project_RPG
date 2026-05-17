@@ -53,7 +53,11 @@ namespace RPGProject.Gameplay
         {
             if (isLocked && !TryUnlock())
             {
-                GameplayUIEvents.ShowWarning($"{displayName} trancado. Precisa de {unlockRequirement.GetDisplayText()}.", source: gameObject);
+                GameplayEvents.PublishInteractionFeedback(
+                    InteractionFeedbackType.ContainerLocked,
+                    displayName,
+                    unlockRequirement.GetDisplayText(),
+                    gameObject);
                 return;
             }
 

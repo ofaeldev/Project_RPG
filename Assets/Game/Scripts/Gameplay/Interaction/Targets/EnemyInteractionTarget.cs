@@ -82,7 +82,11 @@ namespace RPGProject.Gameplay
                 }
 
                 attacker.StartAttacking(combatActor);
-                GameplayUIEvents.ShowInfo($"Atacando {DisplayName}.", source: gameObject);
+                GameplayEvents.PublishInteractionFeedback(
+                    InteractionFeedbackType.EnemyAttackStarted,
+                    DisplayName,
+                    string.Empty,
+                    gameObject);
                 return;
             }
 
@@ -94,7 +98,11 @@ namespace RPGProject.Gameplay
                     return;
                 }
 
-                GameplayUIEvents.ShowInfo($"{DisplayName} nao tem loot.", source: gameObject);
+                GameplayEvents.PublishInteractionFeedback(
+                    InteractionFeedbackType.EnemyNoLoot,
+                    DisplayName,
+                    string.Empty,
+                    gameObject);
                 return;
             }
 
@@ -110,7 +118,11 @@ namespace RPGProject.Gameplay
 
             isDead = true;
             Debug.Log($"{DisplayName} defeated.", gameObject);
-            GameplayUIEvents.ShowSuccess($"{DisplayName} derrotado.", source: gameObject);
+            GameplayEvents.PublishInteractionFeedback(
+                InteractionFeedbackType.EnemyDefeated,
+                DisplayName,
+                string.Empty,
+                gameObject);
 
             if (deactivateOnDefeat)
             {

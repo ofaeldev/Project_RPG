@@ -43,18 +43,30 @@ namespace RPGProject.Gameplay
         {
             if (isOpen)
             {
-                GameplayUIEvents.ShowInfo($"Porta '{displayName}' ja esta aberta.", source: gameObject);
+                GameplayEvents.PublishInteractionFeedback(
+                    InteractionFeedbackType.DoorAlreadyOpen,
+                    displayName,
+                    string.Empty,
+                    gameObject);
                 return;
             }
 
             if (isLocked && !TryUnlock())
             {
-                GameplayUIEvents.ShowWarning($"Porta '{displayName}' trancada. Precisa de {unlockRequirement.GetDisplayText()}.", source: gameObject);
+                GameplayEvents.PublishInteractionFeedback(
+                    InteractionFeedbackType.DoorLocked,
+                    displayName,
+                    unlockRequirement.GetDisplayText(),
+                    gameObject);
                 return;
             }
 
             isOpen = true;
-            GameplayUIEvents.ShowSuccess($"Porta '{displayName}' aberta.", source: gameObject);
+            GameplayEvents.PublishInteractionFeedback(
+                InteractionFeedbackType.DoorOpened,
+                displayName,
+                string.Empty,
+                gameObject);
         }
 
         public WorldObjectStateSnapshot CaptureWorldState(string worldObjectId)

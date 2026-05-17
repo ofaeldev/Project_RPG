@@ -31,7 +31,7 @@ namespace RPGProject.Systems
         {
             if (lootSource == null)
             {
-                GameplayUIEvents.ShowInfo("Nada para saquear.", source: feedbackSource);
+                GameplayEvents.PublishLootTaken(null, 0, 0, feedbackSource);
                 return;
             }
 
@@ -48,13 +48,13 @@ namespace RPGProject.Systems
         {
             if (lootSource == null)
             {
-                GameplayUIEvents.ShowInfo("Nada para saquear.", source: feedbackSource);
+                GameplayEvents.PublishLootTaken(null, 0, 0, feedbackSource);
                 return 0;
             }
 
             int availableStacks = CountAvailableStacks(lootSource);
             int claimedStacks = lootSource.ClaimAllLoot();
-            ShowClaimFeedback(lootSource, availableStacks, claimedStacks, feedbackSource);
+            GameplayEvents.PublishLootTaken(lootSource, availableStacks, claimedStacks, feedbackSource);
             return claimedStacks;
         }
 
@@ -77,22 +77,5 @@ namespace RPGProject.Systems
             return count;
         }
 
-        private static void ShowClaimFeedback(ILootSource lootSource, int availableStacks, int claimedStacks, Object feedbackSource)
-        {
-            string displayName = string.IsNullOrWhiteSpace(lootSource.DisplayName) ? "Loot" : lootSource.DisplayName;
-            if (claimedStacks > 0)
-            {
-                GameplayUIEvents.ShowLoot($"{displayName}: loot coletado.", source: feedbackSource);
-                return;
-            }
-
-            if (availableStacks > 0)
-            {
-                GameplayUIEvents.ShowWarning($"{displayName}: sem espaco no inventario.", source: feedbackSource);
-                return;
-            }
-
-            GameplayUIEvents.ShowInfo($"{displayName} vazio.", source: feedbackSource);
-        }
     }
 }

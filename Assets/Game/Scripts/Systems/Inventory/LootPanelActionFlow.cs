@@ -14,14 +14,32 @@ namespace RPGProject.Systems
 
             if (lootService != null)
             {
-                bool serviceSucceeded = lootService.ClaimAll(lootSource, lootSource as Object) > 0;
-                GameplayEvents.PublishLootTaken(lootSource, serviceSucceeded);
-                return serviceSucceeded;
+                return lootService.ClaimAll(lootSource, lootSource as Object) > 0;
             }
 
-            bool directSucceeded = lootSource.ClaimAllLoot() > 0;
-            GameplayEvents.PublishLootTaken(lootSource, directSucceeded);
-            return directSucceeded;
+            int availableStacks = CountAvailableStacks(lootSource);
+            int claimedStacks = lootSource.ClaimAllLoot();
+            GameplayEvents.PublishLootTaken(lootSource, availableStacks, claimedStacks, lootSource as Object);
+            return claimedStacks > 0;
+        }
+
+        private static int CountAvailableStacks(ILootSource lootSource)
+        {
+            if (lootSource.Loot == null)
+            {
+                return 0;
+            }
+
+            int count = 0;
+            foreach (ItemStackDefinition stack in lootSource.Loot)
+            {
+                if (stack != null && stack.IsValid)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
     }
 }

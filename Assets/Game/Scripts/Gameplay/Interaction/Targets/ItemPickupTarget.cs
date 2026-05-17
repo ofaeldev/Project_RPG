@@ -82,7 +82,11 @@ namespace RPGProject.Gameplay
             if (InventoryManager.Instance == null)
             {
                 Debug.LogWarning($"Cannot pick up '{displayName}' because InventoryManager is missing.", gameObject);
-                GameplayUIEvents.ShowWarning("Inventario indisponivel.", source: gameObject);
+                GameplayEvents.PublishInteractionFeedback(
+                    InteractionFeedbackType.ItemPickupInventoryUnavailable,
+                    GetDisplayText(),
+                    string.Empty,
+                    gameObject);
                 return;
             }
 
@@ -95,7 +99,11 @@ namespace RPGProject.Gameplay
             wasPickedUp = true;
             string itemText = GetDisplayText();
             Debug.Log($"Picked up '{itemText}' x{Amount}.", gameObject);
-            GameplayUIEvents.ShowLoot($"{PickupFeedbackPrefix}: {itemText}", source: gameObject);
+            GameplayEvents.PublishInteractionFeedback(
+                InteractionFeedbackType.ItemPickedUp,
+                itemText,
+                PickupFeedbackPrefix,
+                gameObject);
 
             if (deactivateOnPickup)
             {
@@ -109,7 +117,11 @@ namespace RPGProject.Gameplay
             {
                 if (!InventoryManager.Instance.CanAddItem(item, Amount))
                 {
-                    GameplayUIEvents.ShowWarning($"Sem espaco para {GetDisplayText()}.", source: gameObject);
+                    GameplayEvents.PublishInteractionFeedback(
+                        InteractionFeedbackType.ItemPickupNoSpace,
+                        GetDisplayText(),
+                        string.Empty,
+                        gameObject);
                     return false;
                 }
 
@@ -118,13 +130,21 @@ namespace RPGProject.Gameplay
 
             if (string.IsNullOrWhiteSpace(fallbackItemId))
             {
-                GameplayUIEvents.ShowWarning("Item invalido.", source: gameObject);
+                GameplayEvents.PublishInteractionFeedback(
+                    InteractionFeedbackType.ItemPickupInvalid,
+                    GetDisplayText(),
+                    string.Empty,
+                    gameObject);
                 return false;
             }
 
             if (!InventoryManager.Instance.CanAddItem(fallbackItemId, Amount))
             {
-                GameplayUIEvents.ShowWarning($"Sem espaco para {GetDisplayText()}.", source: gameObject);
+                GameplayEvents.PublishInteractionFeedback(
+                    InteractionFeedbackType.ItemPickupNoSpace,
+                    GetDisplayText(),
+                    string.Empty,
+                    gameObject);
                 return false;
             }
 

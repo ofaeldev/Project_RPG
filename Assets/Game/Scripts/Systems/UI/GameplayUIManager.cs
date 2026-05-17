@@ -40,6 +40,9 @@ namespace RPGProject.Systems
         {
             GameplayUIEvents.FeedbackRequested += OnFeedbackRequested;
             GameplayEvents.AutoAttackOutOfRange += OnAutoAttackOutOfRange;
+            GameplayEvents.InventoryDropResolved += OnInventoryDropResolved;
+            GameplayEvents.InteractionFeedbackResolved += OnInteractionFeedbackResolved;
+            GameplayEvents.LootTaken += OnLootTaken;
             SubscribeGameplayEvents();
         }
 
@@ -47,6 +50,9 @@ namespace RPGProject.Systems
         {
             GameplayUIEvents.FeedbackRequested -= OnFeedbackRequested;
             GameplayEvents.AutoAttackOutOfRange -= OnAutoAttackOutOfRange;
+            GameplayEvents.InventoryDropResolved -= OnInventoryDropResolved;
+            GameplayEvents.InteractionFeedbackResolved -= OnInteractionFeedbackResolved;
+            GameplayEvents.LootTaken -= OnLootTaken;
             UnsubscribeGameplayEvents();
         }
 
@@ -137,6 +143,40 @@ namespace RPGProject.Systems
         {
             Object source = attackEvent.Target != null ? attackEvent.Target.gameObject : attackEvent.Controller;
             GameplayUIEvents.ShowWarning(outOfRangeFollowDisabledMessage, source: source);
+        }
+
+        private void OnInventoryDropResolved(InventoryDropEvent dropEvent)
+        {
+            CreatePresenter();
+            if (presenter.TryCreateInventoryDropFeedback(dropEvent, out GameplayFeedbackMessage message))
+            {
+                Object source = dropEvent.Succeeded && dropEvent.DroppedObject != null
+                    ? dropEvent.DroppedObject
+                    : dropEvent.FeedbackSource;
+                GameplayUIEvents.Show(message.Text, message.MessageType, message.VisibleSeconds, source);
+            }
+        }
+
+        private void OnInteractionFeedbackResolved(InteractionFeedbackEvent feedbackEvent)
+        {
+            CreatePresenter();
+            if (presenter.TryCreateInteractionFeedback(feedbackEvent, out GameplayFeedbackMessage message))
+            {
+                GameplayUIEvents.Show(message.Text, message.MessageType, message.VisibleSeconds, feedbackEvent.FeedbackSource);
+            }
+        }
+
+        private void OnLootTaken(LootTakenEvent lootEvent)
+        {
+            CreatePresenter();
+            if (presenter.TryCreateLootTakenFeedback(
+                    lootEvent.LootSource,
+                    lootEvent.AvailableStacks,
+                    lootEvent.ClaimedStacks,
+                    out GameplayFeedbackMessage message))
+            {
+                GameplayUIEvents.Show(message.Text, message.MessageType, message.VisibleSeconds, lootEvent.FeedbackSource);
+            }
         }
 
         private void ResolveReferences()

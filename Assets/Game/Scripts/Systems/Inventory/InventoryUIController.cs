@@ -363,7 +363,13 @@ namespace RPGProject.Systems
         {
             if (stack == null || InventoryWorldDropper.Instance == null || InventoryManager.Instance == null)
             {
-                GameplayUIEvents.ShowWarning("Nao foi possivel descartar o item.", source: gameObject);
+                GameplayEvents.PublishInventoryDropResolved(
+                    stack,
+                    stack != null ? stack.ItemId : string.Empty,
+                    null,
+                    false,
+                    InventoryDropFailureReason.MissingDependencies,
+                    gameObject);
                 return false;
             }
 

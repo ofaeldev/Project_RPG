@@ -44,7 +44,13 @@ namespace RPGProject.Systems
         {
             if (inventory == null || interactionFlow == null || dropFlow == null)
             {
-                GameplayUIEvents.ShowWarning("Nao foi possivel descartar o item.", source: feedbackSource);
+                GameplayEvents.PublishInventoryDropResolved(
+                    null,
+                    string.Empty,
+                    null,
+                    false,
+                    InventoryDropFailureReason.MissingDependencies,
+                    feedbackSource);
                 return false;
             }
 
