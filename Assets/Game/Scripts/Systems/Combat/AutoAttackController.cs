@@ -41,11 +41,8 @@ namespace RPGProject.Systems
         [Tooltip("When following a combat target, move slightly inside attack range so moving/fleeing targets do not hover exactly on the range edge.")]
         private float followAttackRangeBuffer = 0.15f;
 
-        [Header("Feedback")]
-        [SerializeField]
-        private string outOfRangeFollowDisabledMessage = "Alvo fora de alcance. Aproxime-se ou ative Follow.";
-
         private PlayerMovementController movementController;
+        private readonly AutoAttackEngagementResolver engagementResolver = new();
 
         public CombatActor CurrentTarget => combatActor != null ? combatActor.CurrentTargetActor : null;
         public bool HasTarget => combatActor != null && combatActor.HasTarget;
@@ -59,39 +56,7 @@ namespace RPGProject.Systems
 
         private void Update()
         {
-            if (combatActor == null || !combatActor.HasTarget)
-            {
-                return;
-            }
-
-            if (GameplayInputBlocker.Instance != null && GameplayInputBlocker.Instance.ShouldBlockGameplayAction)
-            {
-                return;
-            }
-
-            if (!combatActor.HasValidTarget)
-            {
-                StopAttacking();
-                return;
-            }
-
-            if (!combatActor.IsCurrentTargetInRange())
-            {
-                if (followTarget)
-                {
-                    movementController.SetMoveTarget(combatActor.CurrentTargetHealth.transform.position, GetFollowStopDistance());
-                }
-                else
-                {
-                    movementController.ClearMoveTarget();
-                    combatActor.TryAttackCurrentTarget();
-                }
-
-                return;
-            }
-
-            movementController.ClearMoveTarget();
-            combatActor.TryAttackCurrentTarget();
+            ExecuteEngagementAction(engagementResolver.Resolve(CreateEngagementContext()));
         }
 
         private void OnDisable()
@@ -192,9 +157,48 @@ namespace RPGProject.Systems
                 return;
             }
 
-            GameplayUIEvents.ShowWarning(
-                outOfRangeFollowDisabledMessage,
-                source: targetHealth != null ? targetHealth.gameObject : gameObject);
+            GameplayEvents.PublishAutoAttackOutOfRange(this, targetHealth);
+        }
+
+        private AutoAttackEngagementContext CreateEngagementContext()
+        {
+            bool hasCombatActor = combatActor != null;
+            bool hasTarget = hasCombatActor && combatActor.HasTarget;
+            bool inputBlocked = GameplayInputBlocker.Instance != null && GameplayInputBlocker.Instance.ShouldBlockGameplayAction;
+            bool hasValidTarget = hasCombatActor && combatActor.HasValidTarget;
+            bool targetInRange = hasValidTarget && combatActor.IsCurrentTargetInRange();
+
+            return new AutoAttackEngagementContext(
+                hasCombatActor,
+                hasTarget,
+                inputBlocked,
+                hasValidTarget,
+                targetInRange,
+                followTarget);
+        }
+
+        private void ExecuteEngagementAction(AutoAttackEngagementAction action)
+        {
+            switch (action)
+            {
+                case AutoAttackEngagementAction.StopAttacking:
+                    StopAttacking();
+                    break;
+                case AutoAttackEngagementAction.MoveToTarget:
+                    if (movementController != null && combatActor?.CurrentTargetHealth != null)
+                    {
+                        movementController.SetMoveTarget(combatActor.CurrentTargetHealth.transform.position, GetFollowStopDistance());
+                    }
+                    break;
+                case AutoAttackEngagementAction.AttackOutOfRange:
+                    movementController?.ClearMoveTarget();
+                    combatActor?.TryAttackCurrentTarget();
+                    break;
+                case AutoAttackEngagementAction.Attack:
+                    movementController?.ClearMoveTarget();
+                    combatActor?.TryAttackCurrentTarget();
+                    break;
+            }
         }
 
         private float GetFollowStopDistance()

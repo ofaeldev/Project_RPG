@@ -239,6 +239,8 @@ Regras:
 - Painel/UI que bloqueia movimento/acao deve chamar `GameplayInputBlocker.Instance.SetBlocker(this, visible)`.
 - Movement/action controllers consultam `GameplayInputBlocker`, nao paineis individuais.
 - Gameplay pede feedback por `GameplayUIEvents`; nao chamar `GlobalFeedbackUIController.Instance` diretamente.
+- Padrao preferido para novos fluxos: sistema publica evento em `GameplayEvents`; `GameplayUIManager` cria/formata a mensagem; UI exibe via `GameplayUIEvents`/`GlobalFeedbackUIController`.
+- Evitar novas chamadas diretas a `GameplayUIEvents.Show*` em dominio, regras puras, services ou flows de aplicacao quando um evento de resultado representar melhor a intencao.
 - Passar `source: gameObject` em feedback de interacao para cooldown/replacement funcionar.
 - Mensagens possuem tipos info, success, warning, error, quest e loot.
 - Rate limiting evita spam do mesmo objeto; fontes diferentes podem substituir a mensagem atual com pequeno delay.
@@ -373,6 +375,8 @@ Regras:
 - `QuestKillTarget` passou a reportar kills diretamente ao observar `HealthComponent.Died`, removendo essa responsabilidade da interacao de clique.
 - `CorpseLootSource` passou a derivar nome do corpo via `CreatureIdentity`, evitando string duplicada por inimigo.
 - `CombatAttackSettings.damage` foi renomeado semanticamente para `baseDamage` com migracao por `FormerlySerializedAs`.
+- `AutoAttackEngagementResolver` extraiu a decisao pura do auto attack do jogador; `AutoAttackController` ficou como adaptador Unity que monta contexto, executa movimento/ataque e publica eventos.
+- Feedback de auto attack fora de alcance foi movido para `GameplayEvents.AutoAttackOutOfRange` + `GameplayUIManager`, removendo chamada direta de UI do `AutoAttackController`.
 
 ## Proximo Passo Recomendado
 

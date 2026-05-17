@@ -22,6 +22,10 @@ namespace RPGProject.Systems
         [SerializeField]
         private string objectiveUpdatedPrefix = "Objetivo atualizado";
 
+        [Header("Combat Feedback")]
+        [SerializeField]
+        private string outOfRangeFollowDisabledMessage = "Alvo fora de alcance. Aproxime-se ou ative Follow.";
+
         private bool questEventsSubscribed;
         private bool inventoryEventsSubscribed;
         private GameplayFeedbackPresenter presenter;
@@ -35,12 +39,14 @@ namespace RPGProject.Systems
         private void OnEnable()
         {
             GameplayUIEvents.FeedbackRequested += OnFeedbackRequested;
+            GameplayEvents.AutoAttackOutOfRange += OnAutoAttackOutOfRange;
             SubscribeGameplayEvents();
         }
 
         private void OnDisable()
         {
             GameplayUIEvents.FeedbackRequested -= OnFeedbackRequested;
+            GameplayEvents.AutoAttackOutOfRange -= OnAutoAttackOutOfRange;
             UnsubscribeGameplayEvents();
         }
 
@@ -125,6 +131,12 @@ namespace RPGProject.Systems
             {
                 GameplayUIEvents.Show(message.Text, message.MessageType, message.VisibleSeconds, source);
             }
+        }
+
+        private void OnAutoAttackOutOfRange(AutoAttackOutOfRangeEvent attackEvent)
+        {
+            Object source = attackEvent.Target != null ? attackEvent.Target.gameObject : attackEvent.Controller;
+            GameplayUIEvents.ShowWarning(outOfRangeFollowDisabledMessage, source: source);
         }
 
         private void ResolveReferences()

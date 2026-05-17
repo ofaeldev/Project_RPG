@@ -60,12 +60,25 @@ namespace RPGProject.Systems
         public bool Succeeded { get; }
     }
 
+    public readonly struct AutoAttackOutOfRangeEvent
+    {
+        public AutoAttackOutOfRangeEvent(AutoAttackController controller, HealthComponent target)
+        {
+            Controller = controller;
+            Target = target;
+        }
+
+        public AutoAttackController Controller { get; }
+        public HealthComponent Target { get; }
+    }
+
     public static class GameplayEvents
     {
         public static event Action<CombatAttackEvent> CombatAttackResolved;
         public static event Action<EnemyStateChangedEvent> EnemyStateChanged;
         public static event Action<InventoryItemActionEvent> InventoryItemActionResolved;
         public static event Action<LootTakenEvent> LootTaken;
+        public static event Action<AutoAttackOutOfRangeEvent> AutoAttackOutOfRange;
 
         public static void PublishCombatAttackResolved(CombatActor attacker, HealthComponent target, DamageResult damage)
         {
@@ -85,6 +98,11 @@ namespace RPGProject.Systems
         public static void PublishLootTaken(ILootSource lootSource, bool succeeded)
         {
             LootTaken?.Invoke(new LootTakenEvent(lootSource, succeeded));
+        }
+
+        public static void PublishAutoAttackOutOfRange(AutoAttackController controller, HealthComponent target)
+        {
+            AutoAttackOutOfRange?.Invoke(new AutoAttackOutOfRangeEvent(controller, target));
         }
     }
 }
